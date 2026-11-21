@@ -1,4 +1,4 @@
-> built 2026-11-04 08:20 UTC from 3ac5a03 (main) · ductus 0.0.17. Details: build_info.json
+> built 2026-11-21 15:41 UTC from 9e238af (main) · ductus 0.0.18. Details: build_info.json
 
 # index.html.md
 
@@ -2269,31 +2269,29 @@ True
 
 # About this build
 
-This documentation was built on **2026-11-04 08:20 UTC** from commit <a href="https://github.com/thorwhalen/ductus/commit/3ac5a03c1f34eff3dc2a11c8f0ac79d20384b29d"><code>3ac5a03</code></a> on branch <code>main</code>, for **ductus 0.0.17** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-11-21 15:41 UTC** from commit <a href="https://github.com/addaix/ductus/commit/9e238afb857b9a5959b20d8cf5c5010ab7c4eda3"><code>9e238af</code></a> on branch <code>main</code>, for **ductus 0.0.18** (from <code>pyproject.toml</code>).
 
-#### WARNING
-The documentation and the package may be misaligned:
-
-- The documented version (0.0.17) is behind the latest release on PyPI (0.0.18): `pip install ductus` gives newer code than these docs describe.
+#### NOTE
+Nothing suggests a mismatch: the tree was clean at the commit above, and the documented version is the one on PyPI.
 
 ## Source
 
-|                     |                                                                                                                                                          |
-|---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Commit              | <a href="https://github.com/thorwhalen/ductus/commit/3ac5a03c1f34eff3dc2a11c8f0ac79d20384b29d"><code>3ac5a03c1f34eff3dc2a11c8f0ac79d20384b29d</code></a> |
-| Branch              | <code>main</code>                                                                                                                                        |
-| Tags at this commit | none                                                                                                                                                     |
-| Working tree        | clean                                                                                                                                                    |
-| Remote              | <code>https://github.com/thorwhalen/ductus</code>                                                                                                        |
+|                     |                                                                                                                                                      |
+|---------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Commit              | <a href="https://github.com/addaix/ductus/commit/9e238afb857b9a5959b20d8cf5c5010ab7c4eda3"><code>9e238afb857b9a5959b20d8cf5c5010ab7c4eda3</code></a> |
+| Branch              | <code>main</code>                                                                                                                                    |
+| Tags at this commit | none                                                                                                                                                 |
+| Working tree        | clean                                                                                                                                                |
+| Remote              | <code>https://github.com/addaix/ductus</code>                                                                                                        |
 
 ## Continuous integration
 
 |              |                                                                                            |
 |--------------|--------------------------------------------------------------------------------------------|
-| Repository   | <code>thorwhalen/ductus</code>                                                             |
-| Run          | <a href="https://github.com/thorwhalen/ductus/actions/runs/41798534856">41798534856</a>    |
+| Repository   | <code>addaix/ductus</code>                                                                 |
+| Run          | <a href="https://github.com/addaix/ductus/actions/runs/44920427344">44920427344</a>        |
 | Ref          | <code>refs/heads/main</code>                                                               |
-| Event commit | <code>3ac5a03c1f34eff3dc2a11c8f0ac79d20384b29d</code> (in the history of the built commit) |
+| Event commit | <code>9e238afb857b9a5959b20d8cf5c5010ab7c4eda3</code> (in the history of the built commit) |
 
 ## Tools
 
@@ -2302,7 +2300,7 @@ The documentation and the package may be misaligned:
 | epythet  | 0.2.22  |
 | Sphinx   | 9.1.1   |
 | docutils | 0.22.4  |
-| Python   | 3.12.15 |
+| Python   | 3.12.16 |
 
 ## Configuration as resolved
 
@@ -2318,13 +2316,13 @@ The documentation and the package may be misaligned:
 
 ## Package on PyPI
 
-Latest release: <a href="https://pypi.org/project/ductus/0.0.18/">0.0.18</a>, newer than the documented version (0.0.17).
+Latest release: <a href="https://pypi.org/project/ductus/0.0.18/">0.0.18</a>, the same as the documented version.
 
 ## Reproduce
 
 ```bash
-git clone https://github.com/thorwhalen/ductus && cd ductus
-git checkout 3ac5a03c1f34eff3dc2a11c8f0ac79d20384b29d
+git clone https://github.com/addaix/ductus && cd ductus
+git checkout 9e238afb857b9a5959b20d8cf5c5010ab7c4eda3
 pip install "epythet==0.2.22"
 epythet quickstart . --ignore tests/ scrap/ examples/
 ```
@@ -2351,20 +2349,20 @@ Skills are folders holding a `SKILL.md` (the [Agent Skills](https://agentskills.
 Gauge which parts of a text read as machine-written, and say why, with the evidence anchored to exact characters. Use whenever someone asks whether text was AI-generated, wants to know which passages “sound like AI”, asks you to check a draft before sending it, or says “is this AI”, “did a model write this”, “which parts sound generated”, “AI detection”, “AI-written”, “run a detector on this”, “how AI does this read”. Also use before the deslop skill, to find what needs rewriting, and after it, to check the rewrite. Read this skill before reaching for any AI-detector service; it owns what can and cannot honestly be claimed from a text.
 
 ```bash
-gh skill install thorwhalen/ductus ductus --agent claude-code
+gh skill install addaix/ductus ductus --agent claude-code
 ```
 
-Source: [`ductus/data/skills/ductus`](https://github.com/thorwhalen/ductus/tree/HEAD/ductus/data/skills/ductus) (bundled with the pip package).
+Source: [`ductus/data/skills/ductus`](https://github.com/addaix/ductus/tree/HEAD/ductus/data/skills/ductus) (bundled with the pip package).
 
 ### `ductus-gauge`
 
 Do a full reading of a text for machine-written prose — run the deterministic detectors, add your own judgment pass for the shapes a regular expression cannot see, and produce a markdown or HTML report with evidence anchored to exact characters. Use when asked which parts of a text read as AI-generated, to analyse or diagnose a document’s authorship signals, to check a draft before sending, or to verify a rewrite. Triggers on “which parts sound like AI”, “analyse this text”, “gauge this”, “is this AI-written”, “run the detectors”, “AI reading of this document”, “check this draft”. Read the `ductus` skill first for what may and may not be claimed.
 
 ```bash
-gh skill install thorwhalen/ductus ductus-gauge --agent claude-code
+gh skill install addaix/ductus ductus-gauge --agent claude-code
 ```
 
-Source: [`ductus/data/skills/ductus-gauge`](https://github.com/thorwhalen/ductus/tree/HEAD/ductus/data/skills/ductus-gauge) (bundled with the pip package).
+Source: [`ductus/data/skills/ductus-gauge`](https://github.com/addaix/ductus/tree/HEAD/ductus/data/skills/ductus-gauge) (bundled with the pip package).
 
 The bundled skills are also on disk after `pip install ductus`, under the package’s `data/skills/` directory; link them into an agent without network access with `skill link-skills <that directory>`.
 
@@ -2376,22 +2374,22 @@ Subagents are Markdown files with a frontmatter (`name`, `description`, `tools`)
 
 Reads a text for machine-written prose in its own context and returns a finished diagnosis — the deterministic scan plus its own judgment pass, written up with the evidence and the limits. Use when asked which parts of a document read as AI-generated, or to check a draft, and you want the reading done without the document’s full text landing in the main thread. Read-only with respect to the source; it writes its report beside the source file.
 
-Source: [`ductus/data/agents/ductus-reader.md`](https://github.com/thorwhalen/ductus/tree/HEAD/ductus/data/agents/ductus-reader.md); tools: `Bash, Read, Write, Glob, Grep`.
+Source: [`ductus/data/agents/ductus-reader.md`](https://github.com/addaix/ductus/tree/HEAD/ductus/data/agents/ductus-reader.md); tools: `Bash, Read, Write, Glob, Grep`.
 
 ## Instruction files
 
 Files agents read before working in this repository.
 
-- [`CLAUDE.md`](https://github.com/thorwhalen/ductus/tree/HEAD/CLAUDE.md): read by Claude Code
+- [`CLAUDE.md`](https://github.com/addaix/ductus/tree/HEAD/CLAUDE.md): read by Claude Code
 
 ## Machine-readable documentation
 
 This site publishes the same documentation in forms that fit an agent’s context window:
 
-- [`llms.txt`](https://thorwhalen.github.io/ductus/llms.txt): an index of every page with a one-line description ([llms.txt](https://llmstxt.org) format)
-- [`ductus.md`](https://thorwhalen.github.io/ductus/ductus.md): the whole documentation as one Markdown file
+- [`llms.txt`](https://addaix.github.io/ductus/llms.txt): an index of every page with a one-line description ([llms.txt](https://llmstxt.org) format)
+- [`ductus.md`](https://addaix.github.io/ductus/ductus.md): the whole documentation as one Markdown file
 - `<page>.html.md`: a rendered Markdown twin of every page, advertised from each page’s `<head>` with `<link rel="alternate" type="text/markdown">`
-- [`objects.inv`](https://thorwhalen.github.io/ductus/objects.inv): the Sphinx inventory: a symbol-to-URL index (`sphobjinv convert plain objects.inv -`)
+- [`objects.inv`](https://addaix.github.io/ductus/objects.inv): the Sphinx inventory: a symbol-to-URL index (`sphobjinv convert plain objects.inv -`)
 
 
 # api.html.md

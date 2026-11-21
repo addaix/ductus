@@ -2,31 +2,29 @@
 
 # About this build
 
-This documentation was built on **2026-11-04 08:20 UTC** from commit <a href="https://github.com/thorwhalen/ductus/commit/3ac5a03c1f34eff3dc2a11c8f0ac79d20384b29d"><code>3ac5a03</code></a> on branch <code>main</code>, for **ductus 0.0.17** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-11-21 15:41 UTC** from commit <a href="https://github.com/addaix/ductus/commit/9e238afb857b9a5959b20d8cf5c5010ab7c4eda3"><code>9e238af</code></a> on branch <code>main</code>, for **ductus 0.0.18** (from <code>pyproject.toml</code>).
 
-#### WARNING
-The documentation and the package may be misaligned:
-
-- The documented version (0.0.17) is behind the latest release on PyPI (0.0.18): `pip install ductus` gives newer code than these docs describe.
+#### NOTE
+Nothing suggests a mismatch: the tree was clean at the commit above, and the documented version is the one on PyPI.
 
 ## Source
 
-|                     |                                                                                                                                                          |
-|---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Commit              | <a href="https://github.com/thorwhalen/ductus/commit/3ac5a03c1f34eff3dc2a11c8f0ac79d20384b29d"><code>3ac5a03c1f34eff3dc2a11c8f0ac79d20384b29d</code></a> |
-| Branch              | <code>main</code>                                                                                                                                        |
-| Tags at this commit | none                                                                                                                                                     |
-| Working tree        | clean                                                                                                                                                    |
-| Remote              | <code>https://github.com/thorwhalen/ductus</code>                                                                                                        |
+|                     |                                                                                                                                                      |
+|---------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Commit              | <a href="https://github.com/addaix/ductus/commit/9e238afb857b9a5959b20d8cf5c5010ab7c4eda3"><code>9e238afb857b9a5959b20d8cf5c5010ab7c4eda3</code></a> |
+| Branch              | <code>main</code>                                                                                                                                    |
+| Tags at this commit | none                                                                                                                                                 |
+| Working tree        | clean                                                                                                                                                |
+| Remote              | <code>https://github.com/addaix/ductus</code>                                                                                                        |
 
 ## Continuous integration
 
 |              |                                                                                            |
 |--------------|--------------------------------------------------------------------------------------------|
-| Repository   | <code>thorwhalen/ductus</code>                                                             |
-| Run          | <a href="https://github.com/thorwhalen/ductus/actions/runs/41798534856">41798534856</a>    |
+| Repository   | <code>addaix/ductus</code>                                                                 |
+| Run          | <a href="https://github.com/addaix/ductus/actions/runs/44920427344">44920427344</a>        |
 | Ref          | <code>refs/heads/main</code>                                                               |
-| Event commit | <code>3ac5a03c1f34eff3dc2a11c8f0ac79d20384b29d</code> (in the history of the built commit) |
+| Event commit | <code>9e238afb857b9a5959b20d8cf5c5010ab7c4eda3</code> (in the history of the built commit) |
 
 ## Tools
 
@@ -35,7 +33,7 @@ The documentation and the package may be misaligned:
 | epythet  | 0.2.22  |
 | Sphinx   | 9.1.1   |
 | docutils | 0.22.4  |
-| Python   | 3.12.15 |
+| Python   | 3.12.16 |
 
 ## Configuration as resolved
 
@@ -51,13 +49,13 @@ The documentation and the package may be misaligned:
 
 ## Package on PyPI
 
-Latest release: <a href="https://pypi.org/project/ductus/0.0.18/">0.0.18</a>, newer than the documented version (0.0.17).
+Latest release: <a href="https://pypi.org/project/ductus/0.0.18/">0.0.18</a>, the same as the documented version.
 
 ## Reproduce
 
 ```bash
-git clone https://github.com/thorwhalen/ductus && cd ductus
-git checkout 3ac5a03c1f34eff3dc2a11c8f0ac79d20384b29d
+git clone https://github.com/addaix/ductus && cd ductus
+git checkout 9e238afb857b9a5959b20d8cf5c5010ab7c4eda3
 pip install "epythet==0.2.22"
 epythet quickstart . --ignore tests/ scrap/ examples/
 ```

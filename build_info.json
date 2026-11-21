@@ -1,39 +1,39 @@
 {
   "schema_version": 1,
-  "built_at": "2026-11-04T08:20:23Z",
+  "built_at": "2026-11-21T15:41:45Z",
   "package": {
     "name": "ductus",
-    "version": "0.0.17",
+    "version": "0.0.18",
     "display_name": "ductus",
     "source": "pyproject.toml"
   },
   "git": {
     "available": true,
-    "commit": "3ac5a03c1f34eff3dc2a11c8f0ac79d20384b29d",
-    "short_commit": "3ac5a03",
+    "commit": "9e238afb857b9a5959b20d8cf5c5010ab7c4eda3",
+    "short_commit": "9e238af",
     "branch": "main",
     "tags": [],
     "dirty": false,
-    "remote_url": "https://github.com/thorwhalen/ductus",
-    "commit_url": "https://github.com/thorwhalen/ductus/commit/3ac5a03c1f34eff3dc2a11c8f0ac79d20384b29d",
+    "remote_url": "https://github.com/addaix/ductus",
+    "commit_url": "https://github.com/addaix/ductus/commit/9e238afb857b9a5959b20d8cf5c5010ab7c4eda3",
     "error": null
   },
   "ci": {
     "provider": "github",
-    "repository": "thorwhalen/ductus",
-    "sha": "3ac5a03c1f34eff3dc2a11c8f0ac79d20384b29d",
+    "repository": "addaix/ductus",
+    "sha": "9e238afb857b9a5959b20d8cf5c5010ab7c4eda3",
     "sha_in_history": true,
     "ref": "refs/heads/main",
     "ref_name": "main",
-    "run_id": "41798534856",
-    "run_url": "https://github.com/thorwhalen/ductus/actions/runs/41798534856",
+    "run_id": "44920427344",
+    "run_url": "https://github.com/addaix/ductus/actions/runs/44920427344",
     "server_url": "https://github.com"
   },
   "tools": {
     "epythet": "0.2.22",
     "sphinx": "9.1.1",
     "docutils": "0.22.4",
-    "python": "3.12.15"
+    "python": "3.12.16"
   },
   "config": {
     "theme": "auto",
@@ -61,15 +61,13 @@
   "pypi": {
     "checked": true,
     "latest": "0.0.18",
-    "relation": "behind",
+    "relation": "same",
     "error": null
   },
-  "reproduce": "git clone https://github.com/thorwhalen/ductus && cd ductus\ngit checkout 3ac5a03c1f34eff3dc2a11c8f0ac79d20384b29d\npip install \"epythet==0.2.22\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
+  "reproduce": "git clone https://github.com/addaix/ductus && cd ductus\ngit checkout 9e238afb857b9a5959b20d8cf5c5010ab7c4eda3\npip install \"epythet==0.2.22\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
   "warnings": [],
   "alignment": {
-    "aligned": false,
-    "notes": [
-      "The documented version (0.0.17) is behind the latest release on PyPI (0.0.18): `pip install ductus` gives newer code than these docs describe."
-    ]
+    "aligned": true,
+    "notes": []
   }
 }
