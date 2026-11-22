@@ -1,4 +1,4 @@
-> built 2026-11-22 17:39 UTC from 259dc09 (main) · ductus 0.0.18. Details: build_info.json
+> built 2026-11-22 19:41 UTC from f41112d (main) · ductus 0.0.19. Details: build_info.json
 
 # index.html.md
 
@@ -2269,16 +2269,18 @@ True
 
 # About this build
 
-This documentation was built on **2026-11-22 17:39 UTC** from commit <a href="https://github.com/addaix/ductus/commit/259dc099cb9f9ad7900e3b75cf93116f95ca4233"><code>259dc09</code></a> on branch <code>main</code>, for **ductus 0.0.18** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-11-22 19:41 UTC** from commit <a href="https://github.com/addaix/ductus/commit/f41112df31a074520a1ce759e90270f602eeb335"><code>f41112d</code></a> on branch <code>main</code>, for **ductus 0.0.19** (from <code>pyproject.toml</code>).
 
-#### NOTE
-Nothing suggests a mismatch: the tree was clean at the commit above, and the documented version is the one on PyPI.
+#### WARNING
+The documentation and the package may be misaligned:
+
+- The documented version (0.0.19) is behind the latest release on PyPI (0.0.20): `pip install ductus` gives newer code than these docs describe.
 
 ## Source
 
 |                     |                                                                                                                                                      |
 |---------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Commit              | <a href="https://github.com/addaix/ductus/commit/259dc099cb9f9ad7900e3b75cf93116f95ca4233"><code>259dc099cb9f9ad7900e3b75cf93116f95ca4233</code></a> |
+| Commit              | <a href="https://github.com/addaix/ductus/commit/f41112df31a074520a1ce759e90270f602eeb335"><code>f41112df31a074520a1ce759e90270f602eeb335</code></a> |
 | Branch              | <code>main</code>                                                                                                                                    |
 | Tags at this commit | none                                                                                                                                                 |
 | Working tree        | clean                                                                                                                                                |
@@ -2289,9 +2291,9 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 |              |                                                                                            |
 |--------------|--------------------------------------------------------------------------------------------|
 | Repository   | <code>addaix/ductus</code>                                                                 |
-| Run          | <a href="https://github.com/addaix/ductus/actions/runs/45050506403">45050506403</a>        |
+| Run          | <a href="https://github.com/addaix/ductus/actions/runs/45062016942">45062016942</a>        |
 | Ref          | <code>refs/heads/main</code>                                                               |
-| Event commit | <code>259dc099cb9f9ad7900e3b75cf93116f95ca4233</code> (in the history of the built commit) |
+| Event commit | <code>f41112df31a074520a1ce759e90270f602eeb335</code> (in the history of the built commit) |
 
 ## Tools
 
@@ -2316,13 +2318,13 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 
 ## Package on PyPI
 
-Latest release: <a href="https://pypi.org/project/ductus/0.0.18/">0.0.18</a>, the same as the documented version.
+Latest release: <a href="https://pypi.org/project/ductus/0.0.20/">0.0.20</a>, newer than the documented version (0.0.19).
 
 ## Reproduce
 
 ```bash
 git clone https://github.com/addaix/ductus && cd ductus
-git checkout 259dc099cb9f9ad7900e3b75cf93116f95ca4233
+git checkout f41112df31a074520a1ce759e90270f602eeb335
 pip install "epythet==0.2.23"
 epythet quickstart . --ignore tests/ scrap/ examples/
 ```
