@@ -102,3 +102,18 @@ They were **not** touched, and deliberately: Gate 2 was fixed before the table w
 Not obviously, but the remaining errors look different from the ones removed. What is left is concentrated in bands B and C (10% each) against 2.3% and 2.0% for beginners and natives — intermediate and advanced non-native writers, whose prose is fluent enough to reach for essayistic constructions and careful enough to avoid the mechanical human tells that would otherwise argue in their favour. That is the same mechanism Phase 2 named, now much smaller but not gone.
 
 Lowering it further means either narrowing `triad`/`discourse-opener`/`exclamation`, or accepting that phrase-level rules cannot separate "formal essay register" from "machine register" because the two genuinely overlap. The second is a real possibility and would be worth saying plainly in the README if it turns out to be true.
+
+## Rules imported from tbhb/vale-ai-tells (addaix/ductus#26)
+
+A fleet review weighed the Vale AI-tell style packs as a replacement scorer and rejected that: [tbhb/vale-ai-tells](https://github.com/tbhb/vale-ai-tells) flags 284 of the 350 human essays here (81%), every LOCNESS native essay included. Six of its 137 rules, though, fired on machine spans of the fixture and on at most nine human essays, so they were candidates for import. The criterion was set before porting: **a rule is kept only if every band's false-accusation rate is unchanged at both granularities**, and it must add a machine-span hit `tells.yaml` did not already have.
+
+| tbhb rule | human essays hit | machine spans hit | kept as |
+|---|---|---|---|
+| `ResonateOveruse` | 0 / 350 | 1 / 18 | `resonate-overuse` |
+| `ParticipialPadding` (minus the lead verbs `ing-trailer` already reads) | 0 | 1 | `participial-padding` |
+| `GrowthMetaphors` | 2 (both native) | 1 | `growth-metaphor` |
+| `BareReaches` (Vale `exceptions` as a lookahead) | 0 | 1 | `bare-reach` |
+| `FigurativeNouns` | 9 | 1 | dropped: every hit, the machine one included, was a literal *story* |
+| `OverusedVocabularyVerbs` | 1 | 0 | dropped: without Vale's part-of-speech tags its new verbs added no machine hit, and the rest are already in `ai-vocabulary` |
+
+With the four added, the table at the top of this page is unchanged in every cell: 22/350 at paragraph, 21/350 at sentence. They enter at tier W (worth fixing as advice, so `acquaint` shows them to neutral and averse readers) and weight 0.15, the floor, because one machine hit each is too small a sample to weigh more. The MIT notice ships as `ductus/data/LICENSE-vale-ai-tells`; the port script and its output are kept outside the repo, since the corpus cannot be redistributed.
