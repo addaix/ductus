@@ -111,9 +111,11 @@ A fleet review weighed the Vale AI-tell style packs as a replacement scorer and 
 |---|---|---|---|
 | `ResonateOveruse` | 0 / 350 | 1 / 18 | `resonate-overuse` |
 | `ParticipialPadding` (minus the lead verbs `ing-trailer` already reads) | 0 | 1 | `participial-padding` |
-| `GrowthMetaphors` | 2 (both native) | 1 | `growth-metaphor` |
-| `BareReaches` (Vale `exceptions` as a lookahead) | 0 | 1 | `bare-reach` |
+| `GrowthMetaphors` | 2 (both native) | 1 | `growth-metaphor` (tier S) |
+| `BareReaches` (Vale `exceptions` as a lookahead) | 0 | 1 | dropped after review: quadratic on a long unbroken token (about 45 s on 50 kB), and it fires on ordinary email prose ("I hope this message reaches you", "the jury reached a verdict") that student essays rarely contain |
 | `FigurativeNouns` | 9 | 1 | dropped: every hit, the machine one included, was a literal *story* |
 | `OverusedVocabularyVerbs` | 1 | 0 | dropped: without Vale's part-of-speech tags its new verbs added no machine hit, and the rest are already in `ai-vocabulary` |
 
-With the four added, the table at the top of this page is unchanged in every cell: 22/350 at paragraph, 21/350 at sentence. They enter at tier W (worth fixing as advice, so `acquaint` shows them to neutral and averse readers) and weight 0.15, the floor, because one machine hit each is too small a sample to weigh more. The MIT notice ships as `ductus/data/LICENSE-vale-ai-tells`; the port script and its output are kept outside the repo, since the corpus cannot be redistributed.
+With the three added, the table at the top of this page is unchanged in every cell: 22/350 at paragraph, 21/350 at sentence. They weigh 0.15, the floor, because one machine hit each is too small a sample to weigh more. `resonate-overuse` and `participial-padding` are tier W (worth fixing as advice, so `acquaint` shows them to neutral and averse readers); `growth-metaphor` is tier S, since *seed funding* and *nurturing a client* are literal and upstream handles them by switching the rule off per domain, which neither package can. Alternatives another rule already reads (*cultivating a sense of*, *ensuring a seamless*, *marking a pivotal*) were cut from `participial-padding`, so one phrase is one signal.
+
+The lesson worth keeping: the essays are the population this package must not hurt, but they are not the only register a catalogue rule meets. `acquaint` applies these rules to email and documentation, so a candidate rule should also be read against that kind of prose before it is ported. The patterns were copied from tbhb/vale-ai-tells at commit `51f646e` (main, after v1.37.0). The MIT notice ships as `ductus/data/LICENSE-vale-ai-tells`; the port script and its output are kept outside the repo, since the corpus cannot be redistributed.
