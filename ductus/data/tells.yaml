@@ -174,7 +174,10 @@ rules:
     count_against: triads_max
     message: lists of three everywhere; break some into twos and fours
     patterns:
-      - '\b[\w-]+, [\w-]+,? and [\w-]+\b'
+      # Starts only at a token start: from every boundary inside a long hyphenated
+      # token (minified code, a data URI) the old `\b` start rescanned to its end,
+      # quadratically. Same matches on the 350 essays and the fixture (#28).
+      - '(?<![\w-])[\w-]+, [\w-]+,? and [\w-]+\b'
 
   - id: exclamation
     tier: S

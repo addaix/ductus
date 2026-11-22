@@ -92,15 +92,15 @@ def test_one_phrase_is_one_signal(text):
 
 
 @pytest.mark.parametrize(
-    "blob",
-    ["x" * 50_000, "x-" * 25_000, "word " * 10_000],
-    ids=["run", "hyphens", "words"],
+    "blob", ["x" * 50_000, "x-" * 25_000, "word " * 10_000], ids=["run", "hyphens", "words"]
 )
-def test_ported_rules_stay_linear_on_pathological_input(blob):
-    """A base64 blob or minified JS must not stall a scan (a surface takes any text)."""
+def test_the_whole_catalogue_stays_linear_on_pathological_input(blob):
+    """A base64 blob or minified JS must not stall a scan (a surface takes any text).
+
+    ``triad`` used to take about 48 s on the hyphenated blob (#28).
+    """
     import time
 
-    rules = [r for r in load_rules() if r.id in PORTED]
     t0 = time.perf_counter()
-    list(iter_tell_matches(blob, rules=rules))
-    assert time.perf_counter() - t0 < 1.0
+    list(iter_tell_matches(blob))
+    assert time.perf_counter() - t0 < 2.0
