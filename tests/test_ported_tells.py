@@ -92,7 +92,9 @@ def test_one_phrase_is_one_signal(text):
 
 
 @pytest.mark.parametrize(
-    "blob", ["x" * 50_000, "x-" * 25_000, "word " * 10_000], ids=["run", "hyphens", "words"]
+    "blob",
+    ["x" * 50_000, "x-" * 25_000, "word " * 10_000],
+    ids=["run", "hyphens", "words"],
 )
 def test_the_whole_catalogue_stays_linear_on_pathological_input(blob):
     """A base64 blob or minified JS must not stall a scan (a surface takes any text).
