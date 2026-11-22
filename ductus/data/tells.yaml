@@ -182,6 +182,52 @@ rules:
     patterns:
       - '!(?=\s|$)'
 
+  # --- Ported from tbhb/vale-ai-tells at commit 51f646e (main, after v1.37.0); MIT,
+  # Copyright (c) 2025-2026 Tony Burns, the licence ships beside this file as
+  # LICENSE-vale-ai-tells. Each fired on a machine-written span of the fixture and on at
+  # most 2 of the 350 human essays of misc/measure_false_positives.py, and adding them
+  # left every band's false-accusation rate unchanged (addaix/ductus#26). One machine hit
+  # each is a small sample, so they weigh as little as an S rule. `growth-metaphor` is
+  # tier S as advice too: its words have literal senses (seed funding, nurturing a client)
+  # that upstream handles by turning the rule off per domain, which neither package can.
+
+  - id: resonate-overuse
+    tier: W
+    weight: 0.15
+    # Source: styles/ai-tells/ResonateOveruse.yml
+    message: '"resonate" for how an idea lands; say what connects and why'
+    patterns:
+      - '\bresonat(?:e|es|ed|ing)\b'
+
+  - id: participial-padding
+    tier: W
+    weight: 0.15
+    # Source: styles/ai-tells/ParticipialPadding.yml
+    # Lead verbs that `ing-trailer` already reads after a comma (highlighting, showcasing,
+    # underscoring, emphasizing, demonstrating, reflecting) are left out, so one phrase is not
+    # counted twice.
+    message: 'a participial phrase that pads; delete it or make the point concrete'
+    patterns:
+      - '\b(?:symbolizing\s+its|symbolizing\s+the|contributing\s+to\s+its|contributing\s+to\s+the\s+development|contributing\s+to\s+the\s+growth|contributing\s+to\s+the\s+overall|contributing\s+to\s+a\s+more|contributing\s+to\s+the\s+region|reinforcing\s+its\s+position|reinforcing\s+its\s+role|reinforcing\s+its\s+commitment|reinforcing\s+the\s+importance|solidifying\s+its\s+position|solidifying\s+its\s+role|solidifying\s+its\s+place|cementing\s+its\s+position|cementing\s+its\s+role|cementing\s+its\s+place|ensuring\s+a\s+smooth|ensuring\s+a\s+more|fostering\s+a\s+sense\s+of|fostering\s+a\s+culture\s+of|fostering\s+a\s+more|fostering\s+an\s+environment|shaping\s+the\s+future|shaping\s+the\s+trajectory|shaping\s+the\s+direction|paving\s+the\s+way\s+for\s+a|setting\s+the\s+stage\s+for\s+a|marking\s+a\s+significant|marking\s+a\s+turning|marking\s+a\s+new)\b'
+
+  - id: growth-metaphor
+    tier: S
+    weight: 0.15
+    # Source: styles/ai-tells/GrowthMetaphors.yml
+    message: 'a growth metaphor (nascent, nurture, incubate); say what literally happens'
+    patterns:
+      - '\bincubat(?:e|es|ed|ing|ion|or|ors)\b'
+      - '\bgestat(?:e|es|ed|ing|ion)\b'
+      - '\bnascent\b'
+      - '\bfledglings?\b'
+      - '\bembryonic\b'
+      - '\bcultivat(?:e|es|ed|ing)\b'
+      - '\bnurtur(?:e|es|ed|ing)\b'
+      - '\bin (?:its|their|the|early|relative|comparative|this) infancy\b'
+      - '\bminimum viable\b'
+      - '\bseed (?:funding|rounds?|stage|capital|money|investment|financing|investors?|backers?)\b'
+      - '\borganic growth\b'
+
 # Messages the operator writes themself: condolence, apology for real harm, conflict,
 # performance feedback. Routine apologies ("sorry for the delay", "my apologies, wrong
 # file attached", "I apologize for any inconvenience", "sorry, I can't make Friday") are not.
