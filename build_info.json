@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "built_at": "2026-11-21T15:41:45Z",
+  "built_at": "2026-11-22T17:39:05Z",
   "package": {
     "name": "ductus",
     "version": "0.0.18",
@@ -9,28 +9,28 @@
   },
   "git": {
     "available": true,
-    "commit": "9e238afb857b9a5959b20d8cf5c5010ab7c4eda3",
-    "short_commit": "9e238af",
+    "commit": "259dc099cb9f9ad7900e3b75cf93116f95ca4233",
+    "short_commit": "259dc09",
     "branch": "main",
     "tags": [],
     "dirty": false,
     "remote_url": "https://github.com/addaix/ductus",
-    "commit_url": "https://github.com/addaix/ductus/commit/9e238afb857b9a5959b20d8cf5c5010ab7c4eda3",
+    "commit_url": "https://github.com/addaix/ductus/commit/259dc099cb9f9ad7900e3b75cf93116f95ca4233",
     "error": null
   },
   "ci": {
     "provider": "github",
     "repository": "addaix/ductus",
-    "sha": "9e238afb857b9a5959b20d8cf5c5010ab7c4eda3",
+    "sha": "259dc099cb9f9ad7900e3b75cf93116f95ca4233",
     "sha_in_history": true,
     "ref": "refs/heads/main",
     "ref_name": "main",
-    "run_id": "44920427344",
-    "run_url": "https://github.com/addaix/ductus/actions/runs/44920427344",
+    "run_id": "45050506403",
+    "run_url": "https://github.com/addaix/ductus/actions/runs/45050506403",
     "server_url": "https://github.com"
   },
   "tools": {
-    "epythet": "0.2.22",
+    "epythet": "0.2.23",
     "sphinx": "9.1.1",
     "docutils": "0.22.4",
     "python": "3.12.16"
@@ -64,7 +64,7 @@
     "relation": "same",
     "error": null
   },
-  "reproduce": "git clone https://github.com/addaix/ductus && cd ductus\ngit checkout 9e238afb857b9a5959b20d8cf5c5010ab7c4eda3\npip install \"epythet==0.2.22\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
+  "reproduce": "git clone https://github.com/addaix/ductus && cd ductus\ngit checkout 259dc099cb9f9ad7900e3b75cf93116f95ca4233\npip install \"epythet==0.2.23\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
   "warnings": [],
   "alignment": {
     "aligned": true,

@@ -5,7 +5,7 @@ orphan: true
 
 # About this build
 
-This documentation was built on **2026-11-21 15:41 UTC** from commit <a href="https://github.com/addaix/ductus/commit/9e238afb857b9a5959b20d8cf5c5010ab7c4eda3"><code>9e238af</code></a> on branch <code>main</code>, for **ductus 0.0.18** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-11-22 17:39 UTC** from commit <a href="https://github.com/addaix/ductus/commit/259dc099cb9f9ad7900e3b75cf93116f95ca4233"><code>259dc09</code></a> on branch <code>main</code>, for **ductus 0.0.18** (from <code>pyproject.toml</code>).
 
 :::{note}
 Nothing suggests a mismatch: the tree was clean at the commit above, and the documented version is the one on PyPI.
@@ -15,7 +15,7 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 
 | | |
 |---|---|
-| Commit | <a href="https://github.com/addaix/ductus/commit/9e238afb857b9a5959b20d8cf5c5010ab7c4eda3"><code>9e238afb857b9a5959b20d8cf5c5010ab7c4eda3</code></a> |
+| Commit | <a href="https://github.com/addaix/ductus/commit/259dc099cb9f9ad7900e3b75cf93116f95ca4233"><code>259dc099cb9f9ad7900e3b75cf93116f95ca4233</code></a> |
 | Branch | <code>main</code> |
 | Tags at this commit | none |
 | Working tree | clean |
@@ -26,15 +26,15 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 | | |
 |---|---|
 | Repository | <code>addaix/ductus</code> |
-| Run | <a href="https://github.com/addaix/ductus/actions/runs/44920427344">44920427344</a> |
+| Run | <a href="https://github.com/addaix/ductus/actions/runs/45050506403">45050506403</a> |
 | Ref | <code>refs/heads/main</code> |
-| Event commit | <code>9e238afb857b9a5959b20d8cf5c5010ab7c4eda3</code> (in the history of the built commit) |
+| Event commit | <code>259dc099cb9f9ad7900e3b75cf93116f95ca4233</code> (in the history of the built commit) |
 
 ## Tools
 
 | | |
 |---|---|
-| epythet | 0.2.22 |
+| epythet | 0.2.23 |
 | Sphinx | 9.1.1 |
 | docutils | 0.22.4 |
 | Python | 3.12.16 |
@@ -59,8 +59,8 @@ Latest release: <a href="https://pypi.org/project/ductus/0.0.18/">0.0.18</a>, th
 
 ```bash
 git clone https://github.com/addaix/ductus && cd ductus
-git checkout 9e238afb857b9a5959b20d8cf5c5010ab7c4eda3
-pip install "epythet==0.2.22"
+git checkout 259dc099cb9f9ad7900e3b75cf93116f95ca4233
+pip install "epythet==0.2.23"
 epythet quickstart . --ignore tests/ scrap/ examples/
 ```
 
