@@ -33,7 +33,10 @@ def test_ported_rules_carry_their_tier_and_the_floor_weight():
     [
         ("The message resonates deeply with younger readers.", "resonate-overuse"),
         ("The festival returned, fostering a sense of community.", "participial-padding"),
-        ("The program has been cementing its position as the leader.", "participial-padding"),
+        (
+            "The program has been cementing its position as the leader.",
+            "participial-padding",
+        ),
         ("The field is still in its infancy.", "growth-metaphor"),
         ("They closed a seed round in March.", "growth-metaphor"),
     ],
@@ -56,7 +59,9 @@ def test_ported_rules_refuse_the_literal_sense(text):
 
 def test_ing_trailer_phrases_are_not_counted_twice():
     """`ing-trailer` already reads ", highlighting the importance ..."."""
-    ids = [m.rule_id for m in iter_tell_matches("We met, highlighting the importance of it.")]
+    ids = [
+        m.rule_id for m in iter_tell_matches("We met, highlighting the importance of it.")
+    ]
     assert "participial-padding" not in ids
 
 
@@ -78,13 +83,18 @@ def test_one_phrase_is_one_signal(text):
     matches = list(iter_tell_matches(text))
     spans = [(m.start, m.end) for m in matches]
     overlapping = [
-        (a, b) for i, a in enumerate(spans) for b in spans[i + 1 :] if a[0] < b[1] and b[0] < a[1]
+        (a, b)
+        for i, a in enumerate(spans)
+        for b in spans[i + 1 :]
+        if a[0] < b[1] and b[0] < a[1]
     ]
     assert not overlapping, [m.rule_id for m in matches]
 
 
 @pytest.mark.parametrize(
-    "blob", ["x" * 50_000, "x-" * 25_000, "word " * 10_000], ids=["run", "hyphens", "words"]
+    "blob",
+    ["x" * 50_000, "x-" * 25_000, "word " * 10_000],
+    ids=["run", "hyphens", "words"],
 )
 def test_ported_rules_stay_linear_on_pathological_input(blob):
     """A base64 blob or minified JS must not stall a scan (a surface takes any text)."""
