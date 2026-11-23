@@ -36,6 +36,7 @@ import os
 from collections.abc import Callable, Sequence
 from typing import Any
 
+from ductus import limits
 from ductus.tools import _dispatch_funcs
 
 __all__ = [
@@ -56,9 +57,8 @@ ROUTED_FUNCS: tuple[Callable[..., Any], ...] = tuple(
 
 #: The service description, carried into the OpenAPI document. An HTTP client that
 #: reads anything at all reads this, so the limits belong here and not only in a
-#: README. The numbers are the measured ones -- see
-#: ``misc/docs/reducing-false-accusations.md``.
-DESCRIPTION = """\
+#: README. The numbers come from :mod:`ductus.limits`.
+DESCRIPTION = f"""\
 Gauge which parts of a text read as machine-written, with every finding anchored to
 the exact characters that carry it.
 
@@ -68,11 +68,11 @@ and a caller should not synthesise one from what it does return. It gives a lean
 with a quote that can be checked against the text.
 
 Its false-positive rate on human-written text is measured: with the default
-detectors, 0.9% of human-written documents are called `leans-machine`. Every one
+detectors, {limits.DOCUMENT_FALSE_ACCUSATION_RATE} of human-written documents are called `leans-machine`. Every one
 of those is wrong. That rate was bought with recall: the document label is now rare on
 machine-written text too, so an unflagged document has not been cleared. A flagged
 *sentence* is much better evidence than a flagged *document* -- the per-sentence rate
-is 0.4-2%.
+is {limits.SENTENCE_FALSE_FLAG_RANGE}.
 
 The bias runs toward formal, fluent, essayistic prose, not toward simple prose. In
 the measured corpus the native-speaker control was the most-accused group.

@@ -5,7 +5,7 @@ import re
 
 import pytest
 
-from ductus import gauge, to_html, to_markdown
+from ductus import gauge, limits, to_html, to_markdown
 
 SAMPLE = (
     "Great question! Let's delve into this robust tapestry.\n\n"
@@ -73,7 +73,7 @@ def test_the_page_states_its_own_limits(html):
     # about a bias this package does not have is not honesty, it is borrowed caution.
     for phrase in (
         "not a verdict",
-        "in a hundred",
+        f"in {limits.DOCUMENT_ONE_IN}",
         "formal, fluent prose",
         "Do not use this to accuse",
     ):

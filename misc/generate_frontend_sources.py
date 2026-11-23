@@ -1,6 +1,6 @@
 """Regenerate the frontend's TypeScript sources from this package's Python.
 
-The frontend never hand-writes what `ductus` already knows. Two files are generated:
+The frontend never hand-writes what `ductus` already knows. Three files are generated:
 
 ``frontend/src/generated/client.ts``
     The typed HTTP client, from the app's own OpenAPI document -- which is itself
@@ -11,7 +11,10 @@ The frontend never hand-writes what `ductus` already knows. Two files are genera
     in ``ductus/base.py``. ``gauge(format="json")`` serialises them with
     ``dataclasses.asdict``, so the wire shape *is* the dataclass shape.
 
-Both are **committed**, so ``npm install && npm run dev`` needs no Python toolchain,
+``frontend/src/generated/limits.ts``
+    The measured false-accusation numbers the panels quote, from ``ductus/limits.py``.
+
+All three are **committed**, so ``npm install && npm run dev`` needs no Python toolchain,
 and ``tests/test_generated_sources.py`` regenerates them and fails if what is committed
 disagrees with what the Python now produces. That test is the whole point: a renamed
 field or a changed signature becomes a failing ``pytest`` run rather than an
@@ -38,10 +41,12 @@ def generated_sources() -> dict[Path, str]:
     script writes.
     """
     from ductus.http import export_client, export_types
+    from ductus.limits import as_typescript
 
     return {
         GENERATED / "client.ts": export_client(),
         GENERATED / "report.ts": export_types(),
+        GENERATED / "limits.ts": as_typescript(),
     }
 
 

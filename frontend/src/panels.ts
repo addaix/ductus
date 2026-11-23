@@ -19,11 +19,12 @@
  *   is the one whose careful prose has just been lit up.
  * - The empty result says it is a weak result, not a clean bill.
  *
- * All of those numbers come from `misc/docs/non-native-calibration.md` and are the
+ * All of those numbers come from `generated/limits.ts` (`ductus/limits.py`) and are the
  * measured ones. None of them is a probability that anyone used a model, and nothing
  * here can be inverted into one.
  */
 
+import { LIMITS } from './generated/limits'
 import type { Report } from './generated/report'
 import type { State, TrackedSignal } from './state'
 import { allUnverified, isStale } from './state'
@@ -121,7 +122,7 @@ export function verdictPanel(state: State): HTMLElement {
     panel.append(
       el('div', { class: 'honesty loud' },
         el('p', {},
-          el('strong', {}, 'About one human-written document in a hundred gets this ' +
+          el('strong', {}, `About one human-written document in ${LIMITS.documentOneIn} gets this ` +
             'same label from this tool.'),
           ' Measured on 350 texts people wrote. If this is your own writing, that is ' +
           'the most likely explanation of what you are looking at.'),
@@ -152,7 +153,7 @@ export function verdictPanel(state: State): HTMLElement {
       el('div', { class: 'honesty' },
         el('p', {},
           'These are weights on quoted phrases, not a probability that anyone used a ' +
-          'model. About one human-written document in a hundred is called ' +
+          `model. About one human-written document in ${LIMITS.documentOneIn} is called ` +
           'machine-leaning by this tool; the bias runs toward formal, fluent prose. ',
           el('strong', {}, 'Read the findings, not the colour.'))),
     )
@@ -268,7 +269,7 @@ export function limitsPanel(report: Report | null): HTMLElement {
         'probability that anyone used a model, and none of them can be turned into one.'),
       el('li', {},
         el('strong', {}, 'Measured error rate: about one human-written document in ' +
-          'a hundred is called machine-leaning.'),
+          `${LIMITS.documentOneIn} is called machine-leaning.`),
         ' Per sentence it is far lower, which is why a flagged sentence is much ' +
         'better evidence than a flagged document.'),
       el('li', {},
