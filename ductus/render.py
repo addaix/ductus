@@ -33,6 +33,7 @@ import json
 from dataclasses import asdict
 from typing import Any
 
+from ductus import limits
 from ductus.base import Report, Segment, Signal, Span
 
 __all__ = ["to_html", "to_json", "to_markdown"]
@@ -50,7 +51,7 @@ _DISCLAIMER = (
     "Evidence, not a verdict. These are signals with weights, not a probability that "
     "anyone used a model. Heavily-edited human writing and model-assisted writing "
     "produce overlapping signatures. Measured on human-written documents, about one "
-    "in a hundred is called leans-machine by these defaults, and every one of those "
+    f"in {limits.DOCUMENT_ONE_IN} is called leans-machine by these defaults, and every one of those "
     "is wrong; the bias runs toward formal, fluent prose, not toward simple prose, so "
     "a careful essayist is the likeliest person to be wronged by this page. The "
     "document label is rare on machine-written text too, so a document that is not "

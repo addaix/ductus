@@ -37,6 +37,7 @@ from __future__ import annotations
 from collections.abc import Sequence
 from typing import Any
 
+from ductus import limits
 from ductus.tools import _dispatch_funcs
 
 __all__ = ["INSTRUCTIONS", "TOOL_REFS", "main", "mk_mcp"]
@@ -50,7 +51,7 @@ TOOL_REFS: tuple[str, ...] = tuple(
 
 #: What the server tells a model about itself. The limits are here rather than in a
 #: README because this is the only description an MCP client ever reads.
-INSTRUCTIONS = """\
+INSTRUCTIONS = f"""\
 Gauge which parts of a text read as machine-written, with every finding anchored to
 the exact characters that carry it.
 
@@ -60,11 +61,12 @@ a caller should not synthesise one from what it does return. It gives a lean in
 with a quote that can be checked against the text.
 
 Its false-positive rate on human-written text is measured: with the default detectors,
-0.9% of human-written documents are called leans-machine, and every one of those is
-wrong. That rate was bought with recall: the document label is now rare on
-machine-written text too (about 2% of machine-written essays), so a document that is
-not flagged has not been cleared. A flagged *sentence* is much better evidence than a
-flagged *document* -- the per-sentence rate is 0.4-2%. The bias runs toward formal, fluent, essayistic prose
+{limits.DOCUMENT_FALSE_ACCUSATION_RATE} of human-written documents are called leans-machine, and every one
+of those is wrong. That rate was bought with recall: the document label is now rare on
+machine-written text too ({limits.MACHINE_DOCUMENT_RECALL} of machine-written essays), so a document that
+is not flagged has not been cleared. A flagged *sentence* is much better evidence than
+a flagged *document* -- the per-sentence rate is {limits.SENTENCE_FALSE_FLAG_RANGE}. The bias runs toward
+formal, fluent, essayistic prose
 rather than toward simple prose; in the measured corpus the native-speaker control was
 the most-accused group.
 
