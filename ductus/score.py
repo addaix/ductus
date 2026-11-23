@@ -62,6 +62,11 @@ REFERENCE_CHARS = 1000
 #: :func:`roll_up` calls the document's ``strength`` full. A *rate*, not a count, which
 #: is what makes the roll-up length-normalised by construction.
 SEGMENT_RATE_FULL = 0.35
+#: Below this much ``strength`` a *document* claims no label (:func:`roll_up`). It may
+#: differ from :data:`STRENGTH_FLOOR`, the segment floor: a document's verdict is the
+#: most-quoted number this package emits, so it is held to its own, measured bar. See
+#: ``misc/docs/non-native-calibration.md``.
+DOCUMENT_STRENGTH_FLOOR = 0.50
 
 
 def _directional(signals: Sequence[Signal]) -> tuple[float, float, float]:
@@ -78,13 +83,23 @@ def _directional(signals: Sequence[Signal]) -> tuple[float, float, float]:
     )
 
 
-def _label(lean: float, strength: float, machine: float, human: float) -> str:
+def _label(
+    lean: float,
+    strength: float,
+    machine: float,
+    human: float,
+    *,
+    floor: float | None = None,
+) -> str:
     """The coarse call, from a lean and how much evidence stands behind it.
+
+    ``floor`` is the strength below which nothing is claimed (default
+    :data:`STRENGTH_FLOOR`).
 
     >>> _label(1.0, 0.5, 0.75, 0.0), _label(1.0, 0.05, 0.07, 0.0)
     ('leans-machine', 'no-evidence')
     """
-    if strength < STRENGTH_FLOOR:
+    if strength < (STRENGTH_FLOOR if floor is None else floor):
         return "no-evidence"
     if lean >= LEAN_THRESHOLD:
         return "leans-machine"
@@ -222,9 +237,11 @@ def roll_up(
     (0.0, 0.0, 'no-evidence')
 
     One flagged paragraph out of two is a rate of 50% -- but not if those two
-    paragraphs are four thousand characters of text carrying one weak signal:
+    paragraphs are four thousand characters of text carrying one signal:
 
-    >>> pair = [seg("leans-machine", 1.0), seg("no-evidence", 0.0)]
+    >>> strong = Segment(span=Span(0, 1, "x"), lean=1.0, strength=1.0,
+    ...                  signals=(Signal("t", "machine", 1.0, "d"),), label="leans-machine")
+    >>> pair = [strong, seg("no-evidence", 0.0)]
     >>> roll_up(pair)[2]
     'leans-machine'
     >>> roll_up(pair, n_chars=4000)[2]
@@ -249,4 +266,8 @@ def roll_up(
     scale = max(1.0, (n_chars or 0) / REFERENCE_CHARS)
     by_density = (machine_w + human_w + neutral_w) / (EVIDENCE_FULL * scale)
     strength = round(min(by_rate, by_density, 1.0), 3)
-    return lean, strength, _label(lean, strength, machine_w, human_w)
+    return (
+        lean,
+        strength,
+        _label(lean, strength, machine_w, human_w, floor=DOCUMENT_STRENGTH_FLOOR),
+    )

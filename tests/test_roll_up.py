@@ -14,7 +14,7 @@ import pytest
 
 from ductus import gauge
 from ductus.base import Segment, Signal, Span
-from ductus.score import SEGMENT_RATE_FULL, STRENGTH_FLOOR, roll_up
+from ductus.score import DOCUMENT_STRENGTH_FLOOR, SEGMENT_RATE_FULL, roll_up
 
 
 def seg(label, *, weight=0.5, direction="machine"):
@@ -55,8 +55,10 @@ def test_a_document_must_satisfy_both_views_of_how_much_evidence_there_is():
     The rate view catches a long document with many segments and one stray flag; the
     density view catches a long document cut into two paragraphs where one stray flag
     is half of them. Believing the weaker of the two is the conservative direction.
+    The flag here is a full-weight signal, so the short pair clears the document
+    floor (``DOCUMENT_STRENGTH_FLOOR``) and only the length decides.
     """
-    pair = [seg("leans-machine"), seg("no-evidence")]
+    pair = [seg("leans-machine", weight=1.0), seg("no-evidence")]
     assert roll_up(pair)[2] == "leans-machine"
     assert roll_up(pair, n_chars=4000)[2] == "no-evidence"
 
@@ -67,7 +69,7 @@ def test_enough_converging_segments_still_convict():
     lean, strength, label = roll_up(document, n_chars=2000)
     assert label == "leans-machine"
     assert lean == 1.0
-    assert strength > STRENGTH_FLOOR
+    assert strength >= DOCUMENT_STRENGTH_FLOOR
 
 
 def test_nothing_directional_says_nothing():

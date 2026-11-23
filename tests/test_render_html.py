@@ -73,7 +73,7 @@ def test_the_page_states_its_own_limits(html):
     # about a bias this package does not have is not honesty, it is borrowed caution.
     for phrase in (
         "not a verdict",
-        "one in sixteen",
+        "in a hundred",
         "formal, fluent prose",
         "Do not use this to accuse",
     ):
