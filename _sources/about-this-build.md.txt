@@ -5,19 +5,17 @@ orphan: true
 
 # About this build
 
-This documentation was built on **2026-11-22 19:41 UTC** from commit <a href="https://github.com/addaix/ductus/commit/f41112df31a074520a1ce759e90270f602eeb335"><code>f41112d</code></a> on branch <code>main</code>, for **ductus 0.0.19** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-11-23 11:03 UTC** from commit <a href="https://github.com/addaix/ductus/commit/44cb3c455e429cc4fbf6191e418f8dc5998d7bcd"><code>44cb3c4</code></a> on branch <code>main</code>, for **ductus 0.0.20** (from <code>pyproject.toml</code>).
 
-:::{warning}
-The documentation and the package may be misaligned:
-
-- The documented version (0.0.19) is behind the latest release on PyPI (0.0.20): `pip install ductus` gives newer code than these docs describe.
+:::{note}
+Nothing suggests a mismatch: the tree was clean at the commit above, and the documented version is the one on PyPI.
 :::
 
 ## Source
 
 | | |
 |---|---|
-| Commit | <a href="https://github.com/addaix/ductus/commit/f41112df31a074520a1ce759e90270f602eeb335"><code>f41112df31a074520a1ce759e90270f602eeb335</code></a> |
+| Commit | <a href="https://github.com/addaix/ductus/commit/44cb3c455e429cc4fbf6191e418f8dc5998d7bcd"><code>44cb3c455e429cc4fbf6191e418f8dc5998d7bcd</code></a> |
 | Branch | <code>main</code> |
 | Tags at this commit | none |
 | Working tree | clean |
@@ -28,15 +26,15 @@ The documentation and the package may be misaligned:
 | | |
 |---|---|
 | Repository | <code>addaix/ductus</code> |
-| Run | <a href="https://github.com/addaix/ductus/actions/runs/45062016942">45062016942</a> |
+| Run | <a href="https://github.com/addaix/ductus/actions/runs/45161468297">45161468297</a> |
 | Ref | <code>refs/heads/main</code> |
-| Event commit | <code>f41112df31a074520a1ce759e90270f602eeb335</code> (in the history of the built commit) |
+| Event commit | <code>44cb3c455e429cc4fbf6191e418f8dc5998d7bcd</code> (in the history of the built commit) |
 
 ## Tools
 
 | | |
 |---|---|
-| epythet | 0.2.23 |
+| epythet | 0.2.25 |
 | Sphinx | 9.1.1 |
 | docutils | 0.22.4 |
 | Python | 3.12.16 |
@@ -55,14 +53,14 @@ The documentation and the package may be misaligned:
 
 ## Package on PyPI
 
-Latest release: <a href="https://pypi.org/project/ductus/0.0.20/">0.0.20</a>, newer than the documented version (0.0.19).
+Latest release: <a href="https://pypi.org/project/ductus/0.0.20/">0.0.20</a>, the same as the documented version.
 
 ## Reproduce
 
 ```bash
 git clone https://github.com/addaix/ductus && cd ductus
-git checkout f41112df31a074520a1ce759e90270f602eeb335
-pip install "epythet==0.2.23"
+git checkout 44cb3c455e429cc4fbf6191e418f8dc5998d7bcd
+pip install "epythet==0.2.25"
 epythet quickstart . --ignore tests/ scrap/ examples/
 ```
 

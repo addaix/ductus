@@ -325,12 +325,14 @@ machine-written”. See <code class="docutils literal notranslate"><span class="
 </span></code></pre></div>
 </div>
 <p>One flagged paragraph out of two is a rate of 50% – but not if those two
-paragraphs are four thousand characters of text carrying one weak signal:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="gp">&gt;&gt;&gt; </span><span class="n">pair</span> <span class="o">=</span> <span class="p">[</span><span class="n">seg</span><span class="p">(</span><span class="s2">"leans-machine"</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="n">seg</span><span class="p">(</span><span class="s2">"no-evidence"</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)]</span>
-</span><span id="line-2"><span class="gp">&gt;&gt;&gt; </span><span class="n">roll_up</span><span class="p">(</span><span class="n">pair</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
-</span><span id="line-3"><span class="go">'leans-machine'</span>
-</span><span id="line-4"><span class="gp">&gt;&gt;&gt; </span><span class="n">roll_up</span><span class="p">(</span><span class="n">pair</span><span class="p">,</span> <span class="n">n_chars</span><span class="o">=</span><span class="mi">4000</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
-</span><span id="line-5"><span class="go">'no-evidence'</span>
+paragraphs are four thousand characters of text carrying one signal:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="gp">&gt;&gt;&gt; </span><span class="n">strong</span> <span class="o">=</span> <span class="n">Segment</span><span class="p">(</span><span class="n">span</span><span class="o">=</span><span class="n">Span</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">),</span> <span class="n">lean</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">strength</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+</span><span id="line-2"><span class="gp">... </span>                 <span class="n">signals</span><span class="o">=</span><span class="p">(</span><span class="n">Signal</span><span class="p">(</span><span class="s2">"t"</span><span class="p">,</span> <span class="s2">"machine"</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s2">"d"</span><span class="p">),),</span> <span class="n">label</span><span class="o">=</span><span class="s2">"leans-machine"</span><span class="p">)</span>
+</span><span id="line-3"><span class="gp">&gt;&gt;&gt; </span><span class="n">pair</span> <span class="o">=</span> <span class="p">[</span><span class="n">strong</span><span class="p">,</span> <span class="n">seg</span><span class="p">(</span><span class="s2">"no-evidence"</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)]</span>
+</span><span id="line-4"><span class="gp">&gt;&gt;&gt; </span><span class="n">roll_up</span><span class="p">(</span><span class="n">pair</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
+</span><span id="line-5"><span class="go">'leans-machine'</span>
+</span><span id="line-6"><span class="gp">&gt;&gt;&gt; </span><span class="n">roll_up</span><span class="p">(</span><span class="n">pair</span><span class="p">,</span> <span class="n">n_chars</span><span class="o">=</span><span class="mi">4000</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
+</span><span id="line-7"><span class="go">'no-evidence'</span>
 </span></code></pre></div>
 </div>
 <dl class="field-list simple">
@@ -364,7 +366,7 @@ paragraphs are four thousand characters of text carrying one weak signal:</p>
 </div>
 </footer>
 </div>
-<script src="../_static/documentation_options.js?v=2fd7553c"></script>
+<script src="../_static/documentation_options.js?v=056c92e6"></script>
 <script src="../_static/doctools.js?v=fd6eb6e6"></script>
 <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
 <script src="../_static/clipboard.min.js?v=a7894cd8"></script>

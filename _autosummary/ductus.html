@@ -151,10 +151,11 @@ evidence strength, and a coarse label you can argue with. See
 <p>Three seams, each one keyword argument with a working default:
 <code class="docutils literal notranslate"><span class="pre">segmenter=</span></code> (how the text is cut up), <code class="docutils literal notranslate"><span class="pre">detectors=</span></code> (what produces evidence),
 <code class="docutils literal notranslate"><span class="pre">aggregate=</span></code> (how evidence becomes a lean).</p>
-<p><strong>This package’s own false-positive rate is measured, and it is not small</strong>: 20.6% of
-350 human-written documents are called <code class="docutils literal notranslate"><span class="pre">leans-machine</span></code> by the shipped defaults, and a
-flagged <em>sentence</em> is much better evidence than a flagged <em>document</em>. See
-<code class="docutils literal notranslate"><span class="pre">misc/docs/phase-2-results.md</span></code> before reporting anything from this.</p>
+<p><strong>This package’s own false-positive rate is measured</strong>: about 1% of human-written
+documents are called <code class="docutils literal notranslate"><span class="pre">leans-machine</span></code> by the shipped defaults (20.6% before the rules,
+the roll-up and the document threshold were corrected), and a flagged <em>sentence</em> is much
+better evidence than a flagged <em>document</em>, which is now rarely called either way. See
+<code class="docutils literal notranslate"><span class="pre">misc/docs/non-native-calibration.md</span></code> before reporting anything from this.</p>
 <p class="rubric">Functions</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
@@ -623,7 +624,7 @@ larger document gets offsets into the document.</p>
 </div>
 </footer>
 </div>
-<script src="../_static/documentation_options.js?v=2fd7553c"></script>
+<script src="../_static/documentation_options.js?v=056c92e6"></script>
 <script src="../_static/doctools.js?v=fd6eb6e6"></script>
 <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
 <script src="../_static/clipboard.min.js?v=a7894cd8"></script>

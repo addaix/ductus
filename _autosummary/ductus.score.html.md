@@ -186,10 +186,12 @@ machine-written”. See `misc/docs/document-verdict-decision.md`.
 ```
 
 One flagged paragraph out of two is a rate of 50% – but not if those two
-paragraphs are four thousand characters of text carrying one weak signal:
+paragraphs are four thousand characters of text carrying one signal:
 
 ```pycon
->>> pair = [seg("leans-machine", 1.0), seg("no-evidence", 0.0)]
+>>> strong = Segment(span=Span(0, 1, "x"), lean=1.0, strength=1.0,
+...                  signals=(Signal("t", "machine", 1.0, "d"),), label="leans-machine")
+>>> pair = [strong, seg("no-evidence", 0.0)]
 >>> roll_up(pair)[2]
 'leans-machine'
 >>> roll_up(pair, n_chars=4000)[2]

@@ -36,18 +36,20 @@ Four things are true and belong in any report you make from this:
 
 So this package describes *text*. It does not make claims about *people*, and it should not be used to.
 
-### And this package’s own false-positive rate is not small
+### And this package’s own false-positive rate is measured
 
 It would be cheap to quote other people’s numbers and not measure our own. Across 350 human-written texts with known proficiency levels, the shipped defaults call a document `leans-machine` — always wrongly, every text in that corpus was written by a person — this often:
 
-|                  | beginner   | intermediate   | advanced   | native control   |
-|------------------|------------|----------------|------------|------------------|
-| **per document** | 2.3%       | 10.0%          | 10.0%      | 2.0%             |
-| per sentence     | 0.4%       | 1.6%           | 2.0%       | 0.4%             |
+|                                         | beginner    | intermediate   | advanced    | native control   |
+|-----------------------------------------|-------------|----------------|-------------|------------------|
+| **per document** (paragraph / sentence) | 0.0% / 0.8% | 2.0% / 1.0%    | 1.4% / 1.4% | 0.0% / 0.0%      |
+| per sentence                            | 0.4%        | 1.6%           | 2.0%        | 0.4%             |
 
-That is down from 20.6% overall, and the way it came down is worth knowing. Three rules were found to be matching **nothing** in machine-written text while implicating 86 human documents between them — two of them were simply broken, catching ordinary negation (“I did not eat from the tree but from the bush”) and the everyday correlative (“not only fast, but also simple”). And the document-level verdict was rebuilt so that it stops treating *accumulation* as *corroboration*: a long document used to be more likely to be accused for being long. [`reducing-false-accusations.md`]() has the per-rule table and what it cost (nothing: not one correctly-flagged machine segment was lost).
+On 1,500 further non-native essays held out from the calibration, the document rate is 0.9% (paragraph) and 0.8% (sentence). **It was bought with recall, and the price is steep**: the document verdict now calls 2 of 100 machine-written essays `leans-machine` where it called 25, so a document label is rare in both directions and the flagged *sentences*, which did not change, are where the evidence is. [`non-native-calibration.md`]() has the pre-registered procedure and every number.
 
-Two things still to take from it. **A single flagged sentence is much better evidence than a flagged document.** And the bias does **not** run the way the literature predicts: it tracks *formal, fluent, essayistic* writing rather than simple writing, because the deterministic detectors look for rhetorical constructions that good writers also use. What remains is concentrated in intermediate and advanced non-native writers, at 10%.
+That is down from 20.6% overall, then 6.0%, and the way it came down is worth knowing. Three rules were found to be matching **nothing** in machine-written text while implicating 86 human documents between them — two of them were simply broken, catching ordinary negation (“I did not eat from the tree but from the bush”) and the everyday correlative (“not only fast, but also simple”). And the document-level verdict was rebuilt so that it stops treating *accumulation* as *corroboration*: a long document used to be more likely to be accused for being long. [`reducing-false-accusations.md`]() has the per-rule table and what it cost (nothing: not one correctly-flagged machine segment was lost).
+
+Two things still to take from it. **A single flagged sentence is much better evidence than a flagged document.** And the bias does **not** run the way the literature predicts: it tracks *formal, fluent, essayistic* writing rather than simple writing, because the deterministic detectors look for rhetorical constructions that good writers also use. Before the document threshold was calibrated (addaix/ductus#30), what remained was concentrated in intermediate and advanced non-native writers, at 10%.
 
 ## What it looks at
 

@@ -1,4 +1,4 @@
-> built 2026-11-22 19:41 UTC from f41112d (main) · ductus 0.0.19. Details: build_info.json
+> built 2026-11-23 11:03 UTC from 44cb3c4 (main) · ductus 0.0.20. Details: build_info.json
 
 # index.html.md
 
@@ -40,18 +40,20 @@ Four things are true and belong in any report you make from this:
 
 So this package describes *text*. It does not make claims about *people*, and it should not be used to.
 
-### And this package’s own false-positive rate is not small
+### And this package’s own false-positive rate is measured
 
 It would be cheap to quote other people’s numbers and not measure our own. Across 350 human-written texts with known proficiency levels, the shipped defaults call a document `leans-machine` — always wrongly, every text in that corpus was written by a person — this often:
 
-|                  | beginner   | intermediate   | advanced   | native control   |
-|------------------|------------|----------------|------------|------------------|
-| **per document** | 2.3%       | 10.0%          | 10.0%      | 2.0%             |
-| per sentence     | 0.4%       | 1.6%           | 2.0%       | 0.4%             |
+|                                         | beginner    | intermediate   | advanced    | native control   |
+|-----------------------------------------|-------------|----------------|-------------|------------------|
+| **per document** (paragraph / sentence) | 0.0% / 0.8% | 2.0% / 1.0%    | 1.4% / 1.4% | 0.0% / 0.0%      |
+| per sentence                            | 0.4%        | 1.6%           | 2.0%        | 0.4%             |
 
-That is down from 20.6% overall, and the way it came down is worth knowing. Three rules were found to be matching **nothing** in machine-written text while implicating 86 human documents between them — two of them were simply broken, catching ordinary negation (“I did not eat from the tree but from the bush”) and the everyday correlative (“not only fast, but also simple”). And the document-level verdict was rebuilt so that it stops treating *accumulation* as *corroboration*: a long document used to be more likely to be accused for being long. [`reducing-false-accusations.md`]() has the per-rule table and what it cost (nothing: not one correctly-flagged machine segment was lost).
+On 1,500 further non-native essays held out from the calibration, the document rate is 0.9% (paragraph) and 0.8% (sentence). **It was bought with recall, and the price is steep**: the document verdict now calls 2 of 100 machine-written essays `leans-machine` where it called 25, so a document label is rare in both directions and the flagged *sentences*, which did not change, are where the evidence is. [`non-native-calibration.md`]() has the pre-registered procedure and every number.
 
-Two things still to take from it. **A single flagged sentence is much better evidence than a flagged document.** And the bias does **not** run the way the literature predicts: it tracks *formal, fluent, essayistic* writing rather than simple writing, because the deterministic detectors look for rhetorical constructions that good writers also use. What remains is concentrated in intermediate and advanced non-native writers, at 10%.
+That is down from 20.6% overall, then 6.0%, and the way it came down is worth knowing. Three rules were found to be matching **nothing** in machine-written text while implicating 86 human documents between them — two of them were simply broken, catching ordinary negation (“I did not eat from the tree but from the bush”) and the everyday correlative (“not only fast, but also simple”). And the document-level verdict was rebuilt so that it stops treating *accumulation* as *corroboration*: a long document used to be more likely to be accused for being long. [`reducing-false-accusations.md`]() has the per-rule table and what it cost (nothing: not one correctly-flagged machine segment was lost).
+
+Two things still to take from it. **A single flagged sentence is much better evidence than a flagged document.** And the bias does **not** run the way the literature predicts: it tracks *formal, fluent, essayistic* writing rather than simple writing, because the deterministic detectors look for rhetorical constructions that good writers also use. Before the document threshold was calibrated (addaix/ductus#30), what remained was concentrated in intermediate and advanced non-native writers, at 10%.
 
 ## What it looks at
 
@@ -1008,10 +1010,11 @@ Three seams, each one keyword argument with a working default:
 `segmenter=` (how the text is cut up), `detectors=` (what produces evidence),
 `aggregate=` (how evidence becomes a lean).
 
-**This package’s own false-positive rate is measured, and it is not small**: 20.6% of
-350 human-written documents are called `leans-machine` by the shipped defaults, and a
-flagged *sentence* is much better evidence than a flagged *document*. See
-`misc/docs/phase-2-results.md` before reporting anything from this.
+**This package’s own false-positive rate is measured**: about 1% of human-written
+documents are called `leans-machine` by the shipped defaults (20.6% before the rules,
+the roll-up and the document threshold were corrected), and a flagged *sentence* is much
+better evidence than a flagged *document*, which is now rarely called either way. See
+`misc/docs/non-native-calibration.md` before reporting anything from this.
 
 ### Functions
 
@@ -1405,7 +1408,7 @@ False
 | [`main`](_autosummary/ductus.http.html.md#ductus.http.main)()                                           | Serve on `127.0.0.1:8000`.                                                |
 | [`mk_app`](_autosummary/ductus.http.html.md#ductus.http.mk_app)(\*[, funcs, title, description, ...])     | Build a FastAPI app serving `funcs`, one POST endpoint per verb.          |
 
-### ductus.http.DESCRIPTION *= 'Gauge which parts of a text read as machine-written, with every finding anchored to\\nthe exact characters that carry it.\\n\\nThis service never returns a percentage, a confidence, or a verdict about a person,\\nand a caller should not synthesise one from what it does return. It gives a lean in\\n[-1, +1], an evidence strength, a coarse label, and the signals behind them -- each\\nwith a quote that can be checked against the text.\\n\\nIts false-positive rate on human-written text is measured: with the default\\ndetectors, 6.0% of 350 human-written documents are called \`leans-machine\`. Every one\\nof those is wrong. A flagged \*sentence\* is much better evidence than a flagged\\n\*document\* -- the per-sentence rate is 0.4-2%.\\n\\nThe bias runs toward formal, fluent, essayistic prose, not toward simple prose. In\\nthe measured corpus the native-speaker control was the most-accused group.\\n\\n"No findings" is a weak result, not a clean bill.\\n'*
+### ductus.http.DESCRIPTION *= 'Gauge which parts of a text read as machine-written, with every finding anchored to\\nthe exact characters that carry it.\\n\\nThis service never returns a percentage, a confidence, or a verdict about a person,\\nand a caller should not synthesise one from what it does return. It gives a lean in\\n[-1, +1], an evidence strength, a coarse label, and the signals behind them -- each\\nwith a quote that can be checked against the text.\\n\\nIts false-positive rate on human-written text is measured: with the default\\ndetectors, 0.9% of human-written documents are called \`leans-machine\`. Every one\\nof those is wrong. That rate was bought with recall: the document label is now rare on\\nmachine-written text too, so an unflagged document has not been cleared. A flagged\\n\*sentence\* is much better evidence than a flagged \*document\* -- the per-sentence rate\\nis 0.4-2%.\\n\\nThe bias runs toward formal, fluent, essayistic prose, not toward simple prose. In\\nthe measured corpus the native-speaker control was the most-accused group.\\n\\n"No findings" is a weak result, not a clean bill.\\n'*
 
 The service description, carried into the OpenAPI document. An HTTP client that
 reads anything at all reads this, so the limits belong here and not only in a
@@ -1466,7 +1469,7 @@ because someone ran it to look at it.
 * **Return type:**
   [`None`](https://docs.python.org/3/builtins/constants.html#None)
 
-### ductus.http.mk_app(\*, funcs=(<function gauge>, <function baseline>, <function detectors>, <function segmenters>, <function tells>), title='ductus', description='Gauge which parts of a text read as machine-written, with every finding anchored to\\nthe exact characters that carry it.\\n\\nThis service never returns a percentage, a confidence, or a verdict about a person,\\nand a caller should not synthesise one from what it does return. It gives a lean in\\n[-1, +1], an evidence strength, a coarse label, and the signals behind them -- each\\nwith a quote that can be checked against the text.\\n\\nIts false-positive rate on human-written text is measured: with the default\\ndetectors, 6.0% of 350 human-written documents are called \`leans-machine\`. Every one\\nof those is wrong. A flagged \*sentence\* is much better evidence than a flagged\\n\*document\* -- the per-sentence rate is 0.4-2%.\\n\\nThe bias runs toward formal, fluent, essayistic prose, not toward simple prose. In\\nthe measured corpus the native-speaker control was the most-accused group.\\n\\n"No findings" is a weak result, not a clean bill.\\n', guard_host_paths=True, ui=None, \*\*qh_kwargs)
+### ductus.http.mk_app(\*, funcs=(<function gauge>, <function baseline>, <function detectors>, <function segmenters>, <function tells>), title='ductus', description='Gauge which parts of a text read as machine-written, with every finding anchored to\\nthe exact characters that carry it.\\n\\nThis service never returns a percentage, a confidence, or a verdict about a person,\\nand a caller should not synthesise one from what it does return. It gives a lean in\\n[-1, +1], an evidence strength, a coarse label, and the signals behind them -- each\\nwith a quote that can be checked against the text.\\n\\nIts false-positive rate on human-written text is measured: with the default\\ndetectors, 0.9% of human-written documents are called \`leans-machine\`. Every one\\nof those is wrong. That rate was bought with recall: the document label is now rare on\\nmachine-written text too, so an unflagged document has not been cleared. A flagged\\n\*sentence\* is much better evidence than a flagged \*document\* -- the per-sentence rate\\nis 0.4-2%.\\n\\nThe bias runs toward formal, fluent, essayistic prose, not toward simple prose. In\\nthe measured corpus the native-speaker control was the most-accused group.\\n\\n"No findings" is a weak result, not a clean bill.\\n', guard_host_paths=True, ui=None, \*\*qh_kwargs)
 
 Build a FastAPI app serving `funcs`, one POST endpoint per verb.
 
@@ -1540,7 +1543,7 @@ False
 |----------------------------------------------------------------------------------------------|-----------------------------------------------|
 | [`mk_mcp`](_autosummary/ductus.mcp.html.md#ductus.mcp.mk_mcp)(\*[, name, refs, instructions, ...]) | Build an MCP server exposing `refs` as tools. |
 
-### ductus.mcp.INSTRUCTIONS *= 'Gauge which parts of a text read as machine-written, with every finding anchored to\\nthe exact characters that carry it.\\n\\nThis server never returns a percentage, a confidence, or a verdict about a person, and\\na caller should not synthesise one from what it does return. It gives a lean in\\n[-1, +1], an evidence strength, a coarse label, and the signals behind them -- each\\nwith a quote that can be checked against the text.\\n\\nIts false-positive rate on human-written text is measured: with the default detectors,\\n6.0% of 350 human-written documents are called leans-machine, and every one of those is\\nwrong. A flagged \*sentence\* is much better evidence than a flagged \*document\* -- the\\nper-sentence rate is 0.4-2%. The bias runs toward formal, fluent, essayistic prose\\nrather than toward simple prose; in the measured corpus the native-speaker control was\\nthe most-accused group.\\n\\n"No findings" is a weak result, not a clean bill.\\n'*
+### ductus.mcp.INSTRUCTIONS *= 'Gauge which parts of a text read as machine-written, with every finding anchored to\\nthe exact characters that carry it.\\n\\nThis server never returns a percentage, a confidence, or a verdict about a person, and\\na caller should not synthesise one from what it does return. It gives a lean in\\n[-1, +1], an evidence strength, a coarse label, and the signals behind them -- each\\nwith a quote that can be checked against the text.\\n\\nIts false-positive rate on human-written text is measured: with the default detectors,\\n0.9% of human-written documents are called leans-machine, and every one of those is\\nwrong. That rate was bought with recall: the document label is now rare on\\nmachine-written text too (about 2% of machine-written essays), so a document that is\\nnot flagged has not been cleared. A flagged \*sentence\* is much better evidence than a\\nflagged \*document\* -- the per-sentence rate is 0.4-2%. The bias runs toward formal, fluent, essayistic prose\\nrather than toward simple prose; in the measured corpus the native-speaker control was\\nthe most-accused group.\\n\\n"No findings" is a weak result, not a clean bill.\\n'*
 
 What the server tells a model about itself. The limits are here rather than in a
 README because this is the only description an MCP client ever reads.
@@ -1556,7 +1559,7 @@ Serve on stdio. The `ductus-mcp` console script.
 * **Return type:**
   [`None`](https://docs.python.org/3/builtins/constants.html#None)
 
-### ductus.mcp.mk_mcp(, name='ductus', refs=('ductus.tools:gauge', 'ductus.tools:baseline', 'ductus.tools:detectors', 'ductus.tools:segmenters', 'ductus.tools:tells'), instructions='Gauge which parts of a text read as machine-written, with every finding anchored to\\nthe exact characters that carry it.\\n\\nThis server never returns a percentage, a confidence, or a verdict about a person, and\\na caller should not synthesise one from what it does return. It gives a lean in\\n[-1, +1], an evidence strength, a coarse label, and the signals behind them -- each\\nwith a quote that can be checked against the text.\\n\\nIts false-positive rate on human-written text is measured: with the default detectors,\\n6.0% of 350 human-written documents are called leans-machine, and every one of those is\\nwrong. A flagged \*sentence\* is much better evidence than a flagged \*document\* -- the\\nper-sentence rate is 0.4-2%. The bias runs toward formal, fluent, essayistic prose\\nrather than toward simple prose; in the measured corpus the native-speaker control was\\nthe most-accused group.\\n\\n"No findings" is a weak result, not a clean bill.\\n', middleware=None, auth=None)
+### ductus.mcp.mk_mcp(, name='ductus', refs=('ductus.tools:gauge', 'ductus.tools:baseline', 'ductus.tools:detectors', 'ductus.tools:segmenters', 'ductus.tools:tells'), instructions='Gauge which parts of a text read as machine-written, with every finding anchored to\\nthe exact characters that carry it.\\n\\nThis server never returns a percentage, a confidence, or a verdict about a person, and\\na caller should not synthesise one from what it does return. It gives a lean in\\n[-1, +1], an evidence strength, a coarse label, and the signals behind them -- each\\nwith a quote that can be checked against the text.\\n\\nIts false-positive rate on human-written text is measured: with the default detectors,\\n0.9% of human-written documents are called leans-machine, and every one of those is\\nwrong. That rate was bought with recall: the document label is now rare on\\nmachine-written text too (about 2% of machine-written essays), so a document that is\\nnot flagged has not been cleared. A flagged \*sentence\* is much better evidence than a\\nflagged \*document\* -- the per-sentence rate is 0.4-2%. The bias runs toward formal, fluent, essayistic prose\\nrather than toward simple prose; in the measured corpus the native-speaker control was\\nthe most-accused group.\\n\\n"No findings" is a weak result, not a clean bill.\\n', middleware=None, auth=None)
 
 Build an MCP server exposing `refs` as tools.
 
@@ -1842,10 +1845,12 @@ machine-written”. See `misc/docs/document-verdict-decision.md`.
 ```
 
 One flagged paragraph out of two is a rate of 50% – but not if those two
-paragraphs are four thousand characters of text carrying one weak signal:
+paragraphs are four thousand characters of text carrying one signal:
 
 ```pycon
->>> pair = [seg("leans-machine", 1.0), seg("no-evidence", 0.0)]
+>>> strong = Segment(span=Span(0, 1, "x"), lean=1.0, strength=1.0,
+...                  signals=(Signal("t", "machine", 1.0, "d"),), label="leans-machine")
+>>> pair = [strong, seg("no-evidence", 0.0)]
 >>> roll_up(pair)[2]
 'leans-machine'
 >>> roll_up(pair, n_chars=4000)[2]
@@ -2269,18 +2274,16 @@ True
 
 # About this build
 
-This documentation was built on **2026-11-22 19:41 UTC** from commit <a href="https://github.com/addaix/ductus/commit/f41112df31a074520a1ce759e90270f602eeb335"><code>f41112d</code></a> on branch <code>main</code>, for **ductus 0.0.19** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-11-23 11:03 UTC** from commit <a href="https://github.com/addaix/ductus/commit/44cb3c455e429cc4fbf6191e418f8dc5998d7bcd"><code>44cb3c4</code></a> on branch <code>main</code>, for **ductus 0.0.20** (from <code>pyproject.toml</code>).
 
-#### WARNING
-The documentation and the package may be misaligned:
-
-- The documented version (0.0.19) is behind the latest release on PyPI (0.0.20): `pip install ductus` gives newer code than these docs describe.
+#### NOTE
+Nothing suggests a mismatch: the tree was clean at the commit above, and the documented version is the one on PyPI.
 
 ## Source
 
 |                     |                                                                                                                                                      |
 |---------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Commit              | <a href="https://github.com/addaix/ductus/commit/f41112df31a074520a1ce759e90270f602eeb335"><code>f41112df31a074520a1ce759e90270f602eeb335</code></a> |
+| Commit              | <a href="https://github.com/addaix/ductus/commit/44cb3c455e429cc4fbf6191e418f8dc5998d7bcd"><code>44cb3c455e429cc4fbf6191e418f8dc5998d7bcd</code></a> |
 | Branch              | <code>main</code>                                                                                                                                    |
 | Tags at this commit | none                                                                                                                                                 |
 | Working tree        | clean                                                                                                                                                |
@@ -2291,15 +2294,15 @@ The documentation and the package may be misaligned:
 |              |                                                                                            |
 |--------------|--------------------------------------------------------------------------------------------|
 | Repository   | <code>addaix/ductus</code>                                                                 |
-| Run          | <a href="https://github.com/addaix/ductus/actions/runs/45062016942">45062016942</a>        |
+| Run          | <a href="https://github.com/addaix/ductus/actions/runs/45161468297">45161468297</a>        |
 | Ref          | <code>refs/heads/main</code>                                                               |
-| Event commit | <code>f41112df31a074520a1ce759e90270f602eeb335</code> (in the history of the built commit) |
+| Event commit | <code>44cb3c455e429cc4fbf6191e418f8dc5998d7bcd</code> (in the history of the built commit) |
 
 ## Tools
 
 |          |         |
 |----------|---------|
-| epythet  | 0.2.23  |
+| epythet  | 0.2.25  |
 | Sphinx   | 9.1.1   |
 | docutils | 0.22.4  |
 | Python   | 3.12.16 |
@@ -2318,14 +2321,14 @@ The documentation and the package may be misaligned:
 
 ## Package on PyPI
 
-Latest release: <a href="https://pypi.org/project/ductus/0.0.20/">0.0.20</a>, newer than the documented version (0.0.19).
+Latest release: <a href="https://pypi.org/project/ductus/0.0.20/">0.0.20</a>, the same as the documented version.
 
 ## Reproduce
 
 ```bash
 git clone https://github.com/addaix/ductus && cd ductus
-git checkout f41112df31a074520a1ce759e90270f602eeb335
-pip install "epythet==0.2.23"
+git checkout 44cb3c455e429cc4fbf6191e418f8dc5998d7bcd
+pip install "epythet==0.2.25"
 epythet quickstart . --ignore tests/ scrap/ examples/
 ```
 
