@@ -121,6 +121,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../_autosummary/ductus.data.html">ductus.data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../_autosummary/ductus.detect.html">ductus.detect</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../_autosummary/ductus.http.html">ductus.http</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/ductus.limits.html">ductus.limits</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../_autosummary/ductus.mcp.html">ductus.mcp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../_autosummary/ductus.render.html">ductus.render</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../_autosummary/ductus.score.html">ductus.score</a></li>
@@ -213,88 +214,90 @@
 </span><span id="line-37"><span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
 </span><span id="line-38"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
 </span><span id="line-39">
-</span><span id="line-40"><span class="kn">from</span><span class="w"> </span><span class="nn">ductus.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">_dispatch_funcs</span>
-</span><span id="line-41">
-</span><span id="line-42"><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"INSTRUCTIONS"</span><span class="p">,</span> <span class="s2">"TOOL_REFS"</span><span class="p">,</span> <span class="s2">"main"</span><span class="p">,</span> <span class="s2">"mk_mcp"</span><span class="p">]</span>
-</span><span id="line-43">
-</span><span id="line-44"><span class="c1">#: One ref per read-only verb, derived from the CLI's own list. Never hand-written.</span>
-</span><span id="line-45"><span class="n">TOOL_REFS</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
-</span><span id="line-46">    <span class="sa">f</span><span class="s2">"ductus.tools:</span><span class="si">{</span><span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">"</span>
-</span><span id="line-47">    <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">_dispatch_funcs</span>
-</span><span id="line-48">    <span class="k">if</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="s2">"mutates_host"</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-</span><span id="line-49"><span class="p">)</span>
-</span><span id="line-50">
-</span><span id="line-51"><span class="c1">#: What the server tells a model about itself. The limits are here rather than in a</span>
-</span><span id="line-52"><span class="c1">#: README because this is the only description an MCP client ever reads.</span>
-</span><span id="line-53"><span class="n">INSTRUCTIONS</span> <span class="o">=</span> <span class="s2">"""</span><span class="se">\</span>
-</span><span id="line-54"><span class="s2">Gauge which parts of a text read as machine-written, with every finding anchored to</span>
-</span><span id="line-55"><span class="s2">the exact characters that carry it.</span>
-</span><span id="line-56">
-</span><span id="line-57"><span class="s2">This server never returns a percentage, a confidence, or a verdict about a person, and</span>
-</span><span id="line-58"><span class="s2">a caller should not synthesise one from what it does return. It gives a lean in</span>
-</span><span id="line-59"><span class="s2">[-1, +1], an evidence strength, a coarse label, and the signals behind them -- each</span>
-</span><span id="line-60"><span class="s2">with a quote that can be checked against the text.</span>
-</span><span id="line-61">
-</span><span id="line-62"><span class="s2">Its false-positive rate on human-written text is measured: with the default detectors,</span>
-</span><span id="line-63"><span class="s2">0.9</span><span class="si">% o</span><span class="s2">f human-written documents are called leans-machine, and every one of those is</span>
-</span><span id="line-64"><span class="s2">wrong. That rate was bought with recall: the document label is now rare on</span>
-</span><span id="line-65"><span class="s2">machine-written text too (about 2</span><span class="si">% o</span><span class="s2">f machine-written essays), so a document that is</span>
-</span><span id="line-66"><span class="s2">not flagged has not been cleared. A flagged *sentence* is much better evidence than a</span>
-</span><span id="line-67"><span class="s2">flagged *document* -- the per-sentence rate is 0.4-2%. The bias runs toward formal, fluent, essayistic prose</span>
-</span><span id="line-68"><span class="s2">rather than toward simple prose; in the measured corpus the native-speaker control was</span>
-</span><span id="line-69"><span class="s2">the most-accused group.</span>
-</span><span id="line-70">
-</span><span id="line-71"><span class="s2">"No findings" is a weak result, not a clean bill.</span>
-</span><span id="line-72"><span class="s2">"""</span>
-</span><span id="line-73">
-</span><span id="line-74">
+</span><span id="line-40"><span class="kn">from</span><span class="w"> </span><span class="nn">ductus</span><span class="w"> </span><span class="kn">import</span> <span class="n">limits</span>
+</span><span id="line-41"><span class="kn">from</span><span class="w"> </span><span class="nn">ductus.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">_dispatch_funcs</span>
+</span><span id="line-42">
+</span><span id="line-43"><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"INSTRUCTIONS"</span><span class="p">,</span> <span class="s2">"TOOL_REFS"</span><span class="p">,</span> <span class="s2">"main"</span><span class="p">,</span> <span class="s2">"mk_mcp"</span><span class="p">]</span>
+</span><span id="line-44">
+</span><span id="line-45"><span class="c1">#: One ref per read-only verb, derived from the CLI's own list. Never hand-written.</span>
+</span><span id="line-46"><span class="n">TOOL_REFS</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+</span><span id="line-47">    <span class="sa">f</span><span class="s2">"ductus.tools:</span><span class="si">{</span><span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">"</span>
+</span><span id="line-48">    <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">_dispatch_funcs</span>
+</span><span id="line-49">    <span class="k">if</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="s2">"mutates_host"</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+</span><span id="line-50"><span class="p">)</span>
+</span><span id="line-51">
+</span><span id="line-52"><span class="c1">#: What the server tells a model about itself. The limits are here rather than in a</span>
+</span><span id="line-53"><span class="c1">#: README because this is the only description an MCP client ever reads.</span>
+</span><span id="line-54"><span class="n">INSTRUCTIONS</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""</span><span class="se">\</span>
+</span><span id="line-55"><span class="s2">Gauge which parts of a text read as machine-written, with every finding anchored to</span>
+</span><span id="line-56"><span class="s2">the exact characters that carry it.</span>
+</span><span id="line-57">
+</span><span id="line-58"><span class="s2">This server never returns a percentage, a confidence, or a verdict about a person, and</span>
+</span><span id="line-59"><span class="s2">a caller should not synthesise one from what it does return. It gives a lean in</span>
+</span><span id="line-60"><span class="s2">[-1, +1], an evidence strength, a coarse label, and the signals behind them -- each</span>
+</span><span id="line-61"><span class="s2">with a quote that can be checked against the text.</span>
+</span><span id="line-62">
+</span><span id="line-63"><span class="s2">Its false-positive rate on human-written text is measured: with the default detectors,</span>
+</span><span id="line-64"><span class="si">{</span><span class="n">limits</span><span class="o">.</span><span class="n">DOCUMENT_FALSE_ACCUSATION_RATE</span><span class="si">}</span><span class="s2"> of human-written documents are called leans-machine, and every one</span>
+</span><span id="line-65"><span class="s2">of those is wrong. That rate was bought with recall: the document label is now rare on</span>
+</span><span id="line-66"><span class="s2">machine-written text too (</span><span class="si">{</span><span class="n">limits</span><span class="o">.</span><span class="n">MACHINE_DOCUMENT_RECALL</span><span class="si">}</span><span class="s2"> of machine-written essays), so a document that</span>
+</span><span id="line-67"><span class="s2">is not flagged has not been cleared. A flagged *sentence* is much better evidence than</span>
+</span><span id="line-68"><span class="s2">a flagged *document* -- the per-sentence rate is </span><span class="si">{</span><span class="n">limits</span><span class="o">.</span><span class="n">SENTENCE_FALSE_FLAG_RANGE</span><span class="si">}</span><span class="s2">. The bias runs toward</span>
+</span><span id="line-69"><span class="s2">formal, fluent, essayistic prose</span>
+</span><span id="line-70"><span class="s2">rather than toward simple prose; in the measured corpus the native-speaker control was</span>
+</span><span id="line-71"><span class="s2">the most-accused group.</span>
+</span><span id="line-72">
+</span><span id="line-73"><span class="s2">"No findings" is a weak result, not a clean bill.</span>
+</span><span id="line-74"><span class="s2">"""</span>
+</span><span id="line-75">
+</span><span id="line-76">
 <div class="viewcode-block" id="mk_mcp">
 <a class="viewcode-back" href="../../_autosummary/ductus.mcp.html#ductus.mcp.mk_mcp">[docs]</a>
-</span><span id="line-75"><span class="k">def</span><span class="w"> </span><span class="nf">mk_mcp</span><span class="p">(</span>
-</span><span id="line-76">    <span class="o">*</span><span class="p">,</span>
-</span><span id="line-77">    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"ductus"</span><span class="p">,</span>
-</span><span id="line-78">    <span class="n">refs</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">TOOL_REFS</span><span class="p">,</span>
-</span><span id="line-79">    <span class="n">instructions</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">INSTRUCTIONS</span><span class="p">,</span>
-</span><span id="line-80">    <span class="n">middleware</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="line-81">    <span class="n">auth</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="line-82"><span class="p">):</span>
-</span><span id="line-83"><span class="w">    </span><span class="sd">"""Build an MCP server exposing ``refs`` as tools.</span>
-</span><span id="line-84">
-</span><span id="line-85"><span class="sd">    ``middleware=`` and ``auth=`` pass straight through to ``py2mcp``. They are where</span>
-</span><span id="line-86"><span class="sd">    a deployed connector attaches metering and authentication without the core</span>
-</span><span id="line-87"><span class="sd">    learning that either exists.</span>
-</span><span id="line-88">
-</span><span id="line-89"><span class="sd">    Raises :class:`ImportError` with an actionable message when the extra is missing.</span>
-</span><span id="line-90"><span class="sd">    """</span>
-</span><span id="line-91">    <span class="k">try</span><span class="p">:</span>
-</span><span id="line-92">        <span class="kn">from</span><span class="w"> </span><span class="nn">py2mcp</span><span class="w"> </span><span class="kn">import</span> <span class="n">mk_mcp_from_refs</span>
-</span><span id="line-93">    <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># pragma: no cover - exercised only without the extra</span>
-</span><span id="line-94">        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-</span><span id="line-95">            <span class="s2">"the MCP surface needs the [mcp] extra:</span><span class="se">\n</span><span class="s2">"</span>
-</span><span id="line-96">            <span class="s2">"    pip install 'ductus[mcp]'</span><span class="se">\n</span><span class="s2">"</span>
-</span><span id="line-97">            <span class="s2">"which installs py2mcp. The library and the CLI need neither."</span>
-</span><span id="line-98">        <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
-</span><span id="line-99">
-</span><span id="line-100">    <span class="k">return</span> <span class="n">mk_mcp_from_refs</span><span class="p">(</span>
-</span><span id="line-101">        <span class="n">refs</span><span class="p">,</span>
-</span><span id="line-102">        <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
-</span><span id="line-103">        <span class="n">instructions</span><span class="o">=</span><span class="n">instructions</span><span class="p">,</span>
-</span><span id="line-104">        <span class="n">middleware</span><span class="o">=</span><span class="n">middleware</span><span class="p">,</span>
-</span><span id="line-105">        <span class="n">auth</span><span class="o">=</span><span class="n">auth</span><span class="p">,</span>
-</span><span id="line-106">    <span class="p">)</span></div>
+</span><span id="line-77"><span class="k">def</span><span class="w"> </span><span class="nf">mk_mcp</span><span class="p">(</span>
+</span><span id="line-78">    <span class="o">*</span><span class="p">,</span>
+</span><span id="line-79">    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"ductus"</span><span class="p">,</span>
+</span><span id="line-80">    <span class="n">refs</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">TOOL_REFS</span><span class="p">,</span>
+</span><span id="line-81">    <span class="n">instructions</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">INSTRUCTIONS</span><span class="p">,</span>
+</span><span id="line-82">    <span class="n">middleware</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="line-83">    <span class="n">auth</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="line-84"><span class="p">):</span>
+</span><span id="line-85"><span class="w">    </span><span class="sd">"""Build an MCP server exposing ``refs`` as tools.</span>
+</span><span id="line-86">
+</span><span id="line-87"><span class="sd">    ``middleware=`` and ``auth=`` pass straight through to ``py2mcp``. They are where</span>
+</span><span id="line-88"><span class="sd">    a deployed connector attaches metering and authentication without the core</span>
+</span><span id="line-89"><span class="sd">    learning that either exists.</span>
+</span><span id="line-90">
+</span><span id="line-91"><span class="sd">    Raises :class:`ImportError` with an actionable message when the extra is missing.</span>
+</span><span id="line-92"><span class="sd">    """</span>
+</span><span id="line-93">    <span class="k">try</span><span class="p">:</span>
+</span><span id="line-94">        <span class="kn">from</span><span class="w"> </span><span class="nn">py2mcp</span><span class="w"> </span><span class="kn">import</span> <span class="n">mk_mcp_from_refs</span>
+</span><span id="line-95">    <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># pragma: no cover - exercised only without the extra</span>
+</span><span id="line-96">        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
+</span><span id="line-97">            <span class="s2">"the MCP surface needs the [mcp] extra:</span><span class="se">\n</span><span class="s2">"</span>
+</span><span id="line-98">            <span class="s2">"    pip install 'ductus[mcp]'</span><span class="se">\n</span><span class="s2">"</span>
+</span><span id="line-99">            <span class="s2">"which installs py2mcp. The library and the CLI need neither."</span>
+</span><span id="line-100">        <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+</span><span id="line-101">
+</span><span id="line-102">    <span class="k">return</span> <span class="n">mk_mcp_from_refs</span><span class="p">(</span>
+</span><span id="line-103">        <span class="n">refs</span><span class="p">,</span>
+</span><span id="line-104">        <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+</span><span id="line-105">        <span class="n">instructions</span><span class="o">=</span><span class="n">instructions</span><span class="p">,</span>
+</span><span id="line-106">        <span class="n">middleware</span><span class="o">=</span><span class="n">middleware</span><span class="p">,</span>
+</span><span id="line-107">        <span class="n">auth</span><span class="o">=</span><span class="n">auth</span><span class="p">,</span>
+</span><span id="line-108">    <span class="p">)</span></div>
 
-</span><span id="line-107">
-</span><span id="line-108">
+</span><span id="line-109">
+</span><span id="line-110">
 <div class="viewcode-block" id="main">
 <a class="viewcode-back" href="../../_autosummary/ductus.mcp.html#ductus.mcp.main">[docs]</a>
-</span><span id="line-109"><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover - a blocking server loop</span>
-</span><span id="line-110"><span class="w">    </span><span class="sd">"""Serve on stdio. The ``ductus-mcp`` console script."""</span>
-</span><span id="line-111">    <span class="n">mk_mcp</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span></div>
+</span><span id="line-111"><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover - a blocking server loop</span>
+</span><span id="line-112"><span class="w">    </span><span class="sd">"""Serve on stdio. The ``ductus-mcp`` console script."""</span>
+</span><span id="line-113">    <span class="n">mk_mcp</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span></div>
 
-</span><span id="line-112">
-</span><span id="line-113">
-</span><span id="line-114"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
-</span><span id="line-115">    <span class="n">main</span><span class="p">()</span>
+</span><span id="line-114">
+</span><span id="line-115">
+</span><span id="line-116"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+</span><span id="line-117">    <span class="n">main</span><span class="p">()</span>
 </span></code></pre></div>
     </div></div>
           </main>
@@ -308,7 +311,7 @@
 </footer>
     </div>
     
-    <script src="../../_static/documentation_options.js?v=056c92e6"></script>
+    <script src="../../_static/documentation_options.js?v=a11416ff"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>

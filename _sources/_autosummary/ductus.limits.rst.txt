@@ -1,0 +1,22 @@
+ductus.limits
+=============
+
+.. automodule:: ductus.limits
+
+   
+   .. rubric:: Module Attributes
+
+   .. autosummary::
+   
+      SOURCE
+      DOCUMENT_FALSE_ACCUSATION_RATE
+      DOCUMENT_ONE_IN
+      MACHINE_DOCUMENT_RECALL
+      SENTENCE_FALSE_FLAG_RANGE
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      as_typescript
+   

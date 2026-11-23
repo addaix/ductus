@@ -13,6 +13,7 @@
 - [ductus.data](ductus.data.html.md): Bundled non-code data: the tells catalogue, agent skills, and the reader subagent.
 - [ductus.detect](ductus.detect.html.md): The detectors – the &#96;detectors=&#96; seam. Each one turns a span into evidence.
 - [ductus.http](ductus.http.html.md): The HTTP surface: the same verbs the CLI dispatches, served over HTTP.
+- [ductus.limits](ductus.limits.html.md): The measured limits of the shipped defaults: the one place their numbers live.
 - [ductus.mcp](ductus.mcp.html.md): The MCP surface: the same verbs the CLI dispatches, emitted as MCP tools.
 - [ductus.render](ductus.render.html.md): Turning a report into something a person reads: JSON, Markdown, or HTML.
 - [ductus.score](ductus.score.html.md): Turning evidence into a lean – the &#96;aggregate=&#96; seam.

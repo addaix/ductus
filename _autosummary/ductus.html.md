@@ -30,7 +30,7 @@ Three seams, each one keyword argument with a working default:
 `segmenter=` (how the text is cut up), `detectors=` (what produces evidence),
 `aggregate=` (how evidence becomes a lean).
 
-**This package’s own false-positive rate is measured**: about 1% of human-written
+**This package’s own false-positive rate is measured**: 0.9% of human-written
 documents are called `leans-machine` by the shipped defaults (20.6% before the rules,
 the roll-up and the document threshold were corrected), and a flagged *sentence* is much
 better evidence than a flagged *document*, which is now rarely called either way. See
@@ -367,6 +367,7 @@ True
 | [`data`](ductus.data.html.md#module-ductus.data)           | Bundled non-code data: the tells catalogue, agent skills, and the reader subagent. |
 | [`detect`](ductus.detect.html.md#module-ductus.detect)       | The detectors -- the `detectors=` seam.                                            |
 | [`http`](ductus.http.html.md#module-ductus.http)           | The HTTP surface: the same verbs the CLI dispatches, served over HTTP.             |
+| [`limits`](ductus.limits.html.md#module-ductus.limits)       | The measured limits of the shipped defaults: the one place their numbers live.     |
 | [`mcp`](ductus.mcp.html.md#module-ductus.mcp)             | The MCP surface: the same verbs the CLI dispatches, emitted as MCP tools.          |
 | [`render`](ductus.render.html.md#module-ductus.render)       | Turning a report into something a person reads: JSON, Markdown, or HTML.           |
 | [`score`](ductus.score.html.md#module-ductus.score)         | Turning evidence into a lean -- the `aggregate=` seam.                             |

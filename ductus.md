@@ -1,4 +1,4 @@
-> built 2026-11-23 11:03 UTC from 44cb3c4 (main) · ductus 0.0.20. Details: build_info.json
+> built 2026-11-23 21:36 UTC from 977f9d6 (main) · ductus 0.0.21. Details: build_info.json
 
 # index.html.md
 
@@ -1010,7 +1010,7 @@ Three seams, each one keyword argument with a working default:
 `segmenter=` (how the text is cut up), `detectors=` (what produces evidence),
 `aggregate=` (how evidence becomes a lean).
 
-**This package’s own false-positive rate is measured**: about 1% of human-written
+**This package’s own false-positive rate is measured**: 0.9% of human-written
 documents are called `leans-machine` by the shipped defaults (20.6% before the rules,
 the roll-up and the document threshold were corrected), and a flagged *sentence* is much
 better evidence than a flagged *document*, which is now rarely called either way. See
@@ -1347,6 +1347,7 @@ True
 | [`data`](_autosummary/ductus.data.html.md#module-ductus.data)           | Bundled non-code data: the tells catalogue, agent skills, and the reader subagent. |
 | [`detect`](_autosummary/ductus.detect.html.md#module-ductus.detect)       | The detectors -- the `detectors=` seam.                                            |
 | [`http`](_autosummary/ductus.http.html.md#module-ductus.http)           | The HTTP surface: the same verbs the CLI dispatches, served over HTTP.             |
+| [`limits`](_autosummary/ductus.limits.html.md#module-ductus.limits)       | The measured limits of the shipped defaults: the one place their numbers live.     |
 | [`mcp`](_autosummary/ductus.mcp.html.md#module-ductus.mcp)             | The MCP surface: the same verbs the CLI dispatches, emitted as MCP tools.          |
 | [`render`](_autosummary/ductus.render.html.md#module-ductus.render)       | Turning a report into something a person reads: JSON, Markdown, or HTML.           |
 | [`score`](_autosummary/ductus.score.html.md#module-ductus.score)         | Turning evidence into a lean -- the `aggregate=` seam.                             |
@@ -1412,8 +1413,7 @@ False
 
 The service description, carried into the OpenAPI document. An HTTP client that
 reads anything at all reads this, so the limits belong here and not only in a
-README. The numbers are the measured ones – see
-`misc/docs/reducing-false-accusations.md`.
+README. The numbers come from [`ductus.limits`](_autosummary/ductus.limits.html.md#module-ductus.limits).
 
 ### ductus.http.ROUTED_FUNCS *: [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[..., [Any](https://docs.python.org/3/library/typing.html#typing.Any)], ...]* *= (<function gauge>, <function baseline>, <function detectors>, <function segmenters>, <function tells>)*
 
@@ -1490,6 +1490,76 @@ Extra keyword arguments pass straight through to `qh.mk_app`.
 Raises [`ImportError`](https://docs.python.org/3/builtins/exceptions.html#ImportError) with an actionable message when the extra is missing.
 
 
+# _autosummary/ductus.limits.html.md
+
+# ductus.limits
+
+The measured limits of the shipped defaults: the one place their numbers live.
+
+Every surface that states how often this package is wrong (the rendered report’s
+footer, the MCP instructions, the OpenAPI description, the frontend’s panels through a
+generated `limits.ts`) formats its text from here, and `tests/test_limits.py` checks
+that the prose which cannot be formatted (README, the skills, the package docstring)
+quotes the same numbers. Re-measure with `misc/measure_false_positives.py` and
+`misc/measure_document_threshold.py` after any change to rules, weights or thresholds,
+then change the numbers here, once.
+
+They are operating characteristics of the instrument, measured on corpora of known
+authorship, never a probability about a document.
+
+```pycon
+>>> f"about one in {DOCUMENT_ONE_IN}"
+'about one in a hundred'
+```
+
+### Module Attributes
+
+| [`SOURCE`](_autosummary/ductus.limits.html.md#ductus.limits.SOURCE)                         | Where the numbers come from.                                                                                                                                          |
+|---------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [`DOCUMENT_FALSE_ACCUSATION_RATE`](_autosummary/ductus.limits.html.md#ductus.limits.DOCUMENT_FALSE_ACCUSATION_RATE) | Human-written documents called `leans-machine` by the defaults (held-out non-native essays and the 350-document W&I+LOCNESS dev set, both granularities, rounded up). |
+| [`DOCUMENT_ONE_IN`](_autosummary/ductus.limits.html.md#ductus.limits.DOCUMENT_ONE_IN)                | The same, as the natural frequency the interfaces use next to a verdict: "about one human-written document in {DOCUMENT_ONE_IN}".                                     |
+| [`MACHINE_DOCUMENT_RECALL`](_autosummary/ductus.limits.html.md#ductus.limits.MACHINE_DOCUMENT_RECALL)        | the recall the rate above was bought with.                                                                                                                            |
+| [`SENTENCE_FALSE_FLAG_RANGE`](_autosummary/ductus.limits.html.md#ductus.limits.SENTENCE_FALSE_FLAG_RANGE)      | Human-written sentences flagged `leans-machine`, across proficiency bands.                                                                                            |
+
+### Functions
+
+| [`as_typescript`](_autosummary/ductus.limits.html.md#ductus.limits.as_typescript)()   | The constants as a TypeScript module, for `frontend/src/generated/limits.ts`.   |
+|--------------------------------------------------------------------|---------------------------------------------------------------------------------|
+
+### ductus.limits.DOCUMENT_FALSE_ACCUSATION_RATE *= '0.9%'*
+
+Human-written documents called `leans-machine` by the defaults (held-out non-native
+essays and the 350-document W&I+LOCNESS dev set, both granularities, rounded up).
+
+### ductus.limits.DOCUMENT_ONE_IN *= 'a hundred'*
+
+The same, as the natural frequency the interfaces use next to a verdict:
+“about one human-written document in {DOCUMENT_ONE_IN}”.
+
+### ductus.limits.MACHINE_DOCUMENT_RECALL *= 'about 2%'*
+
+the recall the
+rate above was bought with.
+
+* **Type:**
+  Machine-written essays the document verdict calls `leans-machine`
+
+### ductus.limits.SENTENCE_FALSE_FLAG_RANGE *= '0.4-2%'*
+
+Human-written sentences flagged `leans-machine`, across proficiency bands.
+
+### ductus.limits.SOURCE *= 'misc/docs/non-native-calibration.md'*
+
+Where the numbers come from.
+
+### ductus.limits.as_typescript()
+
+The constants as a TypeScript module, for `frontend/src/generated/limits.ts`.
+
+* **Return type:**
+  [`str`](https://docs.python.org/3/builtins/stdtypes.html#str)
+
+
 # _autosummary/ductus.mcp.html.md
 
 # ductus.mcp
@@ -1543,7 +1613,7 @@ False
 |----------------------------------------------------------------------------------------------|-----------------------------------------------|
 | [`mk_mcp`](_autosummary/ductus.mcp.html.md#ductus.mcp.mk_mcp)(\*[, name, refs, instructions, ...]) | Build an MCP server exposing `refs` as tools. |
 
-### ductus.mcp.INSTRUCTIONS *= 'Gauge which parts of a text read as machine-written, with every finding anchored to\\nthe exact characters that carry it.\\n\\nThis server never returns a percentage, a confidence, or a verdict about a person, and\\na caller should not synthesise one from what it does return. It gives a lean in\\n[-1, +1], an evidence strength, a coarse label, and the signals behind them -- each\\nwith a quote that can be checked against the text.\\n\\nIts false-positive rate on human-written text is measured: with the default detectors,\\n0.9% of human-written documents are called leans-machine, and every one of those is\\nwrong. That rate was bought with recall: the document label is now rare on\\nmachine-written text too (about 2% of machine-written essays), so a document that is\\nnot flagged has not been cleared. A flagged \*sentence\* is much better evidence than a\\nflagged \*document\* -- the per-sentence rate is 0.4-2%. The bias runs toward formal, fluent, essayistic prose\\nrather than toward simple prose; in the measured corpus the native-speaker control was\\nthe most-accused group.\\n\\n"No findings" is a weak result, not a clean bill.\\n'*
+### ductus.mcp.INSTRUCTIONS *= 'Gauge which parts of a text read as machine-written, with every finding anchored to\\nthe exact characters that carry it.\\n\\nThis server never returns a percentage, a confidence, or a verdict about a person, and\\na caller should not synthesise one from what it does return. It gives a lean in\\n[-1, +1], an evidence strength, a coarse label, and the signals behind them -- each\\nwith a quote that can be checked against the text.\\n\\nIts false-positive rate on human-written text is measured: with the default detectors,\\n0.9% of human-written documents are called leans-machine, and every one\\nof those is wrong. That rate was bought with recall: the document label is now rare on\\nmachine-written text too (about 2% of machine-written essays), so a document that\\nis not flagged has not been cleared. A flagged \*sentence\* is much better evidence than\\na flagged \*document\* -- the per-sentence rate is 0.4-2%. The bias runs toward\\nformal, fluent, essayistic prose\\nrather than toward simple prose; in the measured corpus the native-speaker control was\\nthe most-accused group.\\n\\n"No findings" is a weak result, not a clean bill.\\n'*
 
 What the server tells a model about itself. The limits are here rather than in a
 README because this is the only description an MCP client ever reads.
@@ -1559,7 +1629,7 @@ Serve on stdio. The `ductus-mcp` console script.
 * **Return type:**
   [`None`](https://docs.python.org/3/builtins/constants.html#None)
 
-### ductus.mcp.mk_mcp(, name='ductus', refs=('ductus.tools:gauge', 'ductus.tools:baseline', 'ductus.tools:detectors', 'ductus.tools:segmenters', 'ductus.tools:tells'), instructions='Gauge which parts of a text read as machine-written, with every finding anchored to\\nthe exact characters that carry it.\\n\\nThis server never returns a percentage, a confidence, or a verdict about a person, and\\na caller should not synthesise one from what it does return. It gives a lean in\\n[-1, +1], an evidence strength, a coarse label, and the signals behind them -- each\\nwith a quote that can be checked against the text.\\n\\nIts false-positive rate on human-written text is measured: with the default detectors,\\n0.9% of human-written documents are called leans-machine, and every one of those is\\nwrong. That rate was bought with recall: the document label is now rare on\\nmachine-written text too (about 2% of machine-written essays), so a document that is\\nnot flagged has not been cleared. A flagged \*sentence\* is much better evidence than a\\nflagged \*document\* -- the per-sentence rate is 0.4-2%. The bias runs toward formal, fluent, essayistic prose\\nrather than toward simple prose; in the measured corpus the native-speaker control was\\nthe most-accused group.\\n\\n"No findings" is a weak result, not a clean bill.\\n', middleware=None, auth=None)
+### ductus.mcp.mk_mcp(, name='ductus', refs=('ductus.tools:gauge', 'ductus.tools:baseline', 'ductus.tools:detectors', 'ductus.tools:segmenters', 'ductus.tools:tells'), instructions='Gauge which parts of a text read as machine-written, with every finding anchored to\\nthe exact characters that carry it.\\n\\nThis server never returns a percentage, a confidence, or a verdict about a person, and\\na caller should not synthesise one from what it does return. It gives a lean in\\n[-1, +1], an evidence strength, a coarse label, and the signals behind them -- each\\nwith a quote that can be checked against the text.\\n\\nIts false-positive rate on human-written text is measured: with the default detectors,\\n0.9% of human-written documents are called leans-machine, and every one\\nof those is wrong. That rate was bought with recall: the document label is now rare on\\nmachine-written text too (about 2% of machine-written essays), so a document that\\nis not flagged has not been cleared. A flagged \*sentence\* is much better evidence than\\na flagged \*document\* -- the per-sentence rate is 0.4-2%. The bias runs toward\\nformal, fluent, essayistic prose\\nrather than toward simple prose; in the measured corpus the native-speaker control was\\nthe most-accused group.\\n\\n"No findings" is a weak result, not a clean bill.\\n', middleware=None, auth=None)
 
 Build an MCP server exposing `refs` as tools.
 
@@ -2274,16 +2344,18 @@ True
 
 # About this build
 
-This documentation was built on **2026-11-23 11:03 UTC** from commit <a href="https://github.com/addaix/ductus/commit/44cb3c455e429cc4fbf6191e418f8dc5998d7bcd"><code>44cb3c4</code></a> on branch <code>main</code>, for **ductus 0.0.20** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-11-23 21:36 UTC** from commit <a href="https://github.com/addaix/ductus/commit/977f9d6d8a50171560ff7bec669475e3e94287dc"><code>977f9d6</code></a> on branch <code>main</code>, for **ductus 0.0.21** (from <code>pyproject.toml</code>).
 
-#### NOTE
-Nothing suggests a mismatch: the tree was clean at the commit above, and the documented version is the one on PyPI.
+#### WARNING
+The documentation and the package may be misaligned:
+
+- The documented version (0.0.21) is behind the latest release on PyPI (0.0.22): `pip install ductus` gives newer code than these docs describe.
 
 ## Source
 
 |                     |                                                                                                                                                      |
 |---------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Commit              | <a href="https://github.com/addaix/ductus/commit/44cb3c455e429cc4fbf6191e418f8dc5998d7bcd"><code>44cb3c455e429cc4fbf6191e418f8dc5998d7bcd</code></a> |
+| Commit              | <a href="https://github.com/addaix/ductus/commit/977f9d6d8a50171560ff7bec669475e3e94287dc"><code>977f9d6d8a50171560ff7bec669475e3e94287dc</code></a> |
 | Branch              | <code>main</code>                                                                                                                                    |
 | Tags at this commit | none                                                                                                                                                 |
 | Working tree        | clean                                                                                                                                                |
@@ -2294,9 +2366,9 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 |              |                                                                                            |
 |--------------|--------------------------------------------------------------------------------------------|
 | Repository   | <code>addaix/ductus</code>                                                                 |
-| Run          | <a href="https://github.com/addaix/ductus/actions/runs/45161468297">45161468297</a>        |
+| Run          | <a href="https://github.com/addaix/ductus/actions/runs/45271214720">45271214720</a>        |
 | Ref          | <code>refs/heads/main</code>                                                               |
-| Event commit | <code>44cb3c455e429cc4fbf6191e418f8dc5998d7bcd</code> (in the history of the built commit) |
+| Event commit | <code>977f9d6d8a50171560ff7bec669475e3e94287dc</code> (in the history of the built commit) |
 
 ## Tools
 
@@ -2321,13 +2393,13 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 
 ## Package on PyPI
 
-Latest release: <a href="https://pypi.org/project/ductus/0.0.20/">0.0.20</a>, the same as the documented version.
+Latest release: <a href="https://pypi.org/project/ductus/0.0.22/">0.0.22</a>, newer than the documented version (0.0.21).
 
 ## Reproduce
 
 ```bash
 git clone https://github.com/addaix/ductus && cd ductus
-git checkout 44cb3c455e429cc4fbf6191e418f8dc5998d7bcd
+git checkout 977f9d6d8a50171560ff7bec669475e3e94287dc
 pip install "epythet==0.2.25"
 epythet quickstart . --ignore tests/ scrap/ examples/
 ```

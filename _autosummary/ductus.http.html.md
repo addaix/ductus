@@ -53,8 +53,7 @@ False
 
 The service description, carried into the OpenAPI document. An HTTP client that
 reads anything at all reads this, so the limits belong here and not only in a
-README. The numbers are the measured ones – see
-`misc/docs/reducing-false-accusations.md`.
+README. The numbers come from [`ductus.limits`](ductus.limits.html.md#module-ductus.limits).
 
 ### ductus.http.ROUTED_FUNCS *: [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[..., [Any](https://docs.python.org/3/library/typing.html#typing.Any)], ...]* *= (<function gauge>, <function baseline>, <function detectors>, <function segmenters>, <function tells>)*
 

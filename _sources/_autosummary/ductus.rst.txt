@@ -42,6 +42,7 @@
    data
    detect
    http
+   limits
    mcp
    render
    score

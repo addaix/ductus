@@ -121,6 +121,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../_autosummary/ductus.data.html">ductus.data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../_autosummary/ductus.detect.html">ductus.detect</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../_autosummary/ductus.http.html">ductus.http</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/ductus.limits.html">ductus.limits</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../_autosummary/ductus.mcp.html">ductus.mcp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../_autosummary/ductus.render.html">ductus.render</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../_autosummary/ductus.score.html">ductus.score</a></li>
@@ -212,29 +213,29 @@
 </span><span id="line-36"><span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Sequence</span>
 </span><span id="line-37"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
 </span><span id="line-38">
-</span><span id="line-39"><span class="kn">from</span><span class="w"> </span><span class="nn">ductus.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">_dispatch_funcs</span>
-</span><span id="line-40">
-</span><span id="line-41"><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="line-42">    <span class="s2">"DESCRIPTION"</span><span class="p">,</span>
-</span><span id="line-43">    <span class="s2">"ROUTED_FUNCS"</span><span class="p">,</span>
-</span><span id="line-44">    <span class="s2">"export_client"</span><span class="p">,</span>
-</span><span id="line-45">    <span class="s2">"export_types"</span><span class="p">,</span>
-</span><span id="line-46">    <span class="s2">"main"</span><span class="p">,</span>
-</span><span id="line-47">    <span class="s2">"mk_app"</span><span class="p">,</span>
-</span><span id="line-48"><span class="p">]</span>
-</span><span id="line-49">
-</span><span id="line-50"><span class="c1">#: One callable per read-only verb, derived from the CLI's own list. Never</span>
-</span><span id="line-51"><span class="c1">#: hand-written. The filter reads ``mutates_host``, declared at each verb's own</span>
-</span><span id="line-52"><span class="c1">#: definition -- the same rule, and the same reason, as :mod:`ductus.mcp`.</span>
-</span><span id="line-53"><span class="n">ROUTED_FUNCS</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
-</span><span id="line-54">    <span class="n">fn</span> <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">_dispatch_funcs</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="s2">"mutates_host"</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-</span><span id="line-55"><span class="p">)</span>
-</span><span id="line-56">
-</span><span id="line-57"><span class="c1">#: The service description, carried into the OpenAPI document. An HTTP client that</span>
-</span><span id="line-58"><span class="c1">#: reads anything at all reads this, so the limits belong here and not only in a</span>
-</span><span id="line-59"><span class="c1">#: README. The numbers are the measured ones -- see</span>
-</span><span id="line-60"><span class="c1">#: ``misc/docs/reducing-false-accusations.md``.</span>
-</span><span id="line-61"><span class="n">DESCRIPTION</span> <span class="o">=</span> <span class="s2">"""</span><span class="se">\</span>
+</span><span id="line-39"><span class="kn">from</span><span class="w"> </span><span class="nn">ductus</span><span class="w"> </span><span class="kn">import</span> <span class="n">limits</span>
+</span><span id="line-40"><span class="kn">from</span><span class="w"> </span><span class="nn">ductus.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">_dispatch_funcs</span>
+</span><span id="line-41">
+</span><span id="line-42"><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="line-43">    <span class="s2">"DESCRIPTION"</span><span class="p">,</span>
+</span><span id="line-44">    <span class="s2">"ROUTED_FUNCS"</span><span class="p">,</span>
+</span><span id="line-45">    <span class="s2">"export_client"</span><span class="p">,</span>
+</span><span id="line-46">    <span class="s2">"export_types"</span><span class="p">,</span>
+</span><span id="line-47">    <span class="s2">"main"</span><span class="p">,</span>
+</span><span id="line-48">    <span class="s2">"mk_app"</span><span class="p">,</span>
+</span><span id="line-49"><span class="p">]</span>
+</span><span id="line-50">
+</span><span id="line-51"><span class="c1">#: One callable per read-only verb, derived from the CLI's own list. Never</span>
+</span><span id="line-52"><span class="c1">#: hand-written. The filter reads ``mutates_host``, declared at each verb's own</span>
+</span><span id="line-53"><span class="c1">#: definition -- the same rule, and the same reason, as :mod:`ductus.mcp`.</span>
+</span><span id="line-54"><span class="n">ROUTED_FUNCS</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+</span><span id="line-55">    <span class="n">fn</span> <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">_dispatch_funcs</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="s2">"mutates_host"</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+</span><span id="line-56"><span class="p">)</span>
+</span><span id="line-57">
+</span><span id="line-58"><span class="c1">#: The service description, carried into the OpenAPI document. An HTTP client that</span>
+</span><span id="line-59"><span class="c1">#: reads anything at all reads this, so the limits belong here and not only in a</span>
+</span><span id="line-60"><span class="c1">#: README. The numbers come from :mod:`ductus.limits`.</span>
+</span><span id="line-61"><span class="n">DESCRIPTION</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""</span><span class="se">\</span>
 </span><span id="line-62"><span class="s2">Gauge which parts of a text read as machine-written, with every finding anchored to</span>
 </span><span id="line-63"><span class="s2">the exact characters that carry it.</span>
 </span><span id="line-64">
@@ -244,11 +245,11 @@
 </span><span id="line-68"><span class="s2">with a quote that can be checked against the text.</span>
 </span><span id="line-69">
 </span><span id="line-70"><span class="s2">Its false-positive rate on human-written text is measured: with the default</span>
-</span><span id="line-71"><span class="s2">detectors, 0.9</span><span class="si">% o</span><span class="s2">f human-written documents are called `leans-machine`. Every one</span>
+</span><span id="line-71"><span class="s2">detectors, </span><span class="si">{</span><span class="n">limits</span><span class="o">.</span><span class="n">DOCUMENT_FALSE_ACCUSATION_RATE</span><span class="si">}</span><span class="s2"> of human-written documents are called `leans-machine`. Every one</span>
 </span><span id="line-72"><span class="s2">of those is wrong. That rate was bought with recall: the document label is now rare on</span>
 </span><span id="line-73"><span class="s2">machine-written text too, so an unflagged document has not been cleared. A flagged</span>
 </span><span id="line-74"><span class="s2">*sentence* is much better evidence than a flagged *document* -- the per-sentence rate</span>
-</span><span id="line-75"><span class="s2">is 0.4-2%.</span>
+</span><span id="line-75"><span class="s2">is </span><span class="si">{</span><span class="n">limits</span><span class="o">.</span><span class="n">SENTENCE_FALSE_FLAG_RANGE</span><span class="si">}</span><span class="s2">.</span>
 </span><span id="line-76">
 </span><span id="line-77"><span class="s2">The bias runs toward formal, fluent, essayistic prose, not toward simple prose. In</span>
 </span><span id="line-78"><span class="s2">the measured corpus the native-speaker control was the most-accused group.</span>
@@ -641,7 +642,7 @@
 </footer>
     </div>
     
-    <script src="../../_static/documentation_options.js?v=056c92e6"></script>
+    <script src="../../_static/documentation_options.js?v=a11416ff"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
