@@ -26,10 +26,11 @@ Three seams, each one keyword argument with a working default:
 ``segmenter=`` (how the text is cut up), ``detectors=`` (what produces evidence),
 ``aggregate=`` (how evidence becomes a lean).
 
-**This package's own false-positive rate is measured, and it is not small**: 20.6% of
-350 human-written documents are called ``leans-machine`` by the shipped defaults, and a
-flagged *sentence* is much better evidence than a flagged *document*. See
-``misc/docs/phase-2-results.md`` before reporting anything from this.
+**This package's own false-positive rate is measured**: about 1% of human-written
+documents are called ``leans-machine`` by the shipped defaults (20.6% before the rules,
+the roll-up and the document threshold were corrected), and a flagged *sentence* is much
+better evidence than a flagged *document*, which is now rarely called either way. See
+``misc/docs/non-native-calibration.md`` before reporting anything from this.
 """
 
 from ductus.base import (

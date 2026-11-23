@@ -43,18 +43,19 @@ __all__ = ["to_html", "to_json", "to_markdown"]
 #: prose, with the native-speaker control the most-accused group. The skills and the
 #: MCP instructions were corrected at the time and this string was missed.
 #:
-#: The rate is given as a natural frequency rather than "6.0%" on purpose. This text
+#: The rate is given as a natural frequency rather than "0.9%" on purpose. This text
 #: sits directly under a verdict about one specific document, and the footer is the
 #: one place the no-percentage rule is load-bearing enough to have its own test.
 _DISCLAIMER = (
     "Evidence, not a verdict. These are signals with weights, not a probability that "
     "anyone used a model. Heavily-edited human writing and model-assisted writing "
-    "produce overlapping signatures. Measured on 350 human-written documents, about "
-    "one in sixteen is called leans-machine by these defaults, and every one of those "
+    "produce overlapping signatures. Measured on human-written documents, about one "
+    "in a hundred is called leans-machine by these defaults, and every one of those "
     "is wrong; the bias runs toward formal, fluent prose, not toward simple prose, so "
-    "a careful essayist is the likeliest person to be wronged by this page. A flagged "
-    "sentence is much better evidence than a flagged document. Do not use this to "
-    "accuse someone."
+    "a careful essayist is the likeliest person to be wronged by this page. The "
+    "document label is rare on machine-written text too, so a document that is not "
+    "flagged has not been cleared. A flagged sentence is much better evidence than a "
+    "flagged document. Do not use this to accuse someone."
 )
 
 

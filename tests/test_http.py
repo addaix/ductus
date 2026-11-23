@@ -217,10 +217,10 @@ def test_the_guard_can_be_turned_off_for_a_local_service(tmp_path):
 def test_the_limits_travel_with_the_openapi_document(client):
     """An HTTP client reads the description and nothing else, so it must carry them."""
     described = client.get("/openapi.json").json()["info"]["description"]
-    assert "6.0%" in described
+    assert "0.9%" in described and "recall" in described
     assert "formal, fluent" in described
     assert "weak result, not a clean bill" in described
-    assert "%" not in described.replace("6.0%", "").replace("0.4-2%", "")
+    assert "%" not in described.replace("0.9%", "").replace("0.4-2%", "")
 
 
 def test_no_percentage_anywhere_in_a_response(client):

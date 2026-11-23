@@ -68,9 +68,11 @@ and a caller should not synthesise one from what it does return. It gives a lean
 with a quote that can be checked against the text.
 
 Its false-positive rate on human-written text is measured: with the default
-detectors, 6.0% of 350 human-written documents are called `leans-machine`. Every one
-of those is wrong. A flagged *sentence* is much better evidence than a flagged
-*document* -- the per-sentence rate is 0.4-2%.
+detectors, 0.9% of human-written documents are called `leans-machine`. Every one
+of those is wrong. That rate was bought with recall: the document label is now rare on
+machine-written text too, so an unflagged document has not been cleared. A flagged
+*sentence* is much better evidence than a flagged *document* -- the per-sentence rate
+is 0.4-2%.
 
 The bias runs toward formal, fluent, essayistic prose, not toward simple prose. In
 the measured corpus the native-speaker control was the most-accused group.
